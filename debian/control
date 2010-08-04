@@ -1,0 +1,14 @@
+Source: kisstester
+Section: multimedia
+Priority: extra
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.0
+Maintainer: Attila Csipa <maemo@csipa.in.rs>
+XSBC-Original-Maintainer: Attila Csipa <maemo@csipa.in.rs>
+
+
+Package: kisstester
+Architecture: any
+Depends: python2.5-qt4-gui (>> 4.7.3-maemo0), ${shlibs:Depends}, ${misc:Depends}
+Description: An assistant for feedback on applications extras-testing
+
