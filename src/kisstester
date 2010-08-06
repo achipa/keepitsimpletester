@@ -1,0 +1,17 @@
+#!/usr/bin/python
+
+import platform
+if __name__ == "__main__":
+    print "KISStester"
+    print platform.platform()
+    
+import sys
+import kisstester_main
+
+if __name__ == "__main__":
+    if 0:
+        import cProfile
+        command = """kisstester_main.start()"""
+        cProfile.runctx( command, globals(), locals(), filename="kisstester.profile" )
+    else:
+        kisstester_main.start()
