@@ -20,10 +20,13 @@ except Exception, e:
 try:
     if os.path.getmtime("main.ui") > os.path.getmtime("main_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
+    if os.path.getmtime("appitem.ui") > os.path.getmtime("appitem_ui.py") and not os.path.exists("/dev/mmcblk0"):
+        raise Exception()
     if os.path.getmtime("kisstester.qrc") > os.path.getmtime("kisstester_rc.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except Exception, e:
     subprocess.call(["pyuic4", "main.ui", "-o", "main_ui.py"])
+    subprocess.call(["pyuic4", "appitem.ui", "-o", "appitem_ui.py"])
     subprocess.call(["pyrcc4", "kisstester.qrc", "-o", "kisstester_rc.py"])
 from main_ui import Ui_MainWindow
     
@@ -133,11 +136,11 @@ class MainWindow(QMainWindow):
         def configureButton(b, d):
                     b.setText("%s, Karma %s%s, %s" % (d["version"], d["karma"], d["status"], d["waiting"]))
                     if d["voted"]:
-                        b.setEnabled(False)
+                        # b.setEnabled(False) # can't disable as then you couldn't change your vote
                         if d["myvote"]:
-                            b.setStyleSheet("QPushButton{ background-color: green; color: white }")
+                            b.setStyleSheet("QPushButton{ border-color: green; color: white }")
                         else:
-                            b.setStyleSheet("QPushButton{ background-color: red; color: white }")
+                            b.setStyleSheet("QPushButton{ border-color: red; color: white }")
                     elif d["status"]:
                         b.setStyleSheet("QPushButton{ color: green }")
                     elif d["karma"] < 0:
@@ -166,27 +169,25 @@ class MainWindow(QMainWindow):
             status = ""
             rawrecent = subprocess.Popen(["/usr/bin/dpkg -s %s" % str(pkglist)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
             for line in rawrecent.splitlines():
-                if line.startswith("Package:"):
-                    package = line.split(": ")[1]
-                if line.startswith("Status:") and line.endswith(" installed"):
-                    status = "installed"
-                if line.startswith("Version:"):
-                    print d["version"]
-                    print package
-                    print status
-                if line.startswith("Version: %s" % d["version"]) and package and status:
-                    b = QPushButton()
-                    d = p.packages[package]
-                    label = QLabel(d["name"])
-                    configureButton(b,d)
-                    self.ui.recentLayout.insertWidget(0,b)
-                    self.ui.recentLayout.insertWidget(0,label)
-                    package = ""
-                    status = ""
-                
-                if len(line) == 0:
-                    package = ""
-                    status = ""
+                if line.startswith("Package:"):                                                                                                 
+                    package = line.split(": ")[1]                                                                                               
+                if line.startswith("Status:"):                                                                                                  
+                    if line.endswith(" installed"):                                                                                             
+                        status = "installed"                                                                                                    
+                    else:                          
+                        status = ""                
+                        package = ""               
+                if line.startswith("Version:") and package and status:
+                    for (pname, d) in p.packages.iteritems():         
+                        if line.startswith("Version: %s" % d["version"]) and package and status:
+                            b = QPushButton()                                                   
+                            d = p.packages[package]                                             
+                            label = QLabel(d["name"])                                           
+                        configureButton(b,d)                                                    
+                        self.ui.recentLayout.insertWidget(0,b)                                  
+                        self.ui.recentLayout.insertWidget(0,label)                              
+                    package = ""                                    
+                    status = ""                                   
                     
 #                    for filename in os.listdir("/var/lib/dpkg/info"):
 #                        if not filename.endswith(".list"):
