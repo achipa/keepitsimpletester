@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
                      SLOT("show()"))
         
         self.connect(self.ui.actionAbout, SIGNAL("triggered()"), 
-                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. Developed with PyQt and WinIDE. Happy testing !"))
+                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WinIDE. Happy testing !"))
         
         self.connect(self.ui.actionAbout_Qt, SIGNAL("triggered()"), 
                      lambda: QApplication.instance().aboutQt())
@@ -139,27 +139,20 @@ class MainWindow(QMainWindow):
                 self.ui.queueLayout.insertWidget(0,item)
                 pkglist += " " + name
                 
-            package = ""
-            status = ""
-            rawrecent = subprocess.Popen(["/usr/bin/dpkg -s %s" % str(pkglist)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
+            rawrecent = subprocess.Popen(["/usr/bin/dpkg-query -W %s" % str(pkglist)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
             for line in rawrecent.splitlines():
-                if line.startswith("Package:"):                                                                                                 
-                    package = line.split(": ")[1]                                                                                               
-                if line.startswith("Status:"):                                                                                                  
-                    if line.endswith(" installed"):                                                                                             
-                        status = "installed"                                                                                                    
-                    else:                          
-                        status = ""                
-                        package = ""               
-                if line.startswith("Version:") and package and status:
-                    for (pname, d) in p.packages.iteritems():         
-                        if line.startswith("Version: %s" % d["version"]) and package and status:
-                            item = appitem.AppItem(self, d)
-                            item.ui.pButton_install.setVisible(False) # no install button if already installed
-                            self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
-                            self.ui.recentLayout.insertWidget(0,item)                                  
-                    package = ""                                    
-                    status = ""                                   
+                pkgdata = line.split("\t")
+                print pkgdata
+                if len(pkgdata) < 2:
+                    continue
+                for (pname, d) in p.packages.iteritems():         
+                    print d["pname"]
+                    print d["version"]
+                    if d["pname"] == pkgdata[0] and d["version"] == pkgdata[1]:
+                        item = appitem.AppItem(self, d)
+                        item.ui.pButton_install.setVisible(False) # no install button if already installed
+                        self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
+                        self.ui.recentLayout.insertWidget(0,item)                                  
                     
 #                    for filename in os.listdir("/var/lib/dpkg/info"):
 #                        if not filename.endswith(".list"):
