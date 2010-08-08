@@ -20,18 +20,16 @@ except Exception, e:
 try:
     if os.path.getmtime("main.ui") > os.path.getmtime("main_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
-    if os.path.getmtime("appitem.ui") > os.path.getmtime("appitem_ui.py") and not os.path.exists("/dev/mmcblk0"):
-        raise Exception()
     if os.path.getmtime("kisstester.qrc") > os.path.getmtime("kisstester_rc.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except Exception, e:
     subprocess.call(["pyuic4", "main.ui", "-o", "main_ui.py"])
-    subprocess.call(["pyuic4", "appitem.ui", "-o", "appitem_ui.py"])
     subprocess.call(["pyrcc4", "kisstester.qrc", "-o", "kisstester_rc.py"])
 from main_ui import Ui_MainWindow
     
 import settings
 import vote 
+import appitem
 
 class MainWindow(QMainWindow):
     loginAvailable = pyqtSignal()
@@ -60,7 +58,7 @@ class MainWindow(QMainWindow):
                      SLOT("show()"))
         
         self.connect(self.ui.actionAbout, SIGNAL("triggered()"), 
-                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org"))
+                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. Developed with PyQt and WinIDE. Happy testing !"))
         
         self.connect(self.ui.actionAbout_Qt, SIGNAL("triggered()"), 
                      lambda: QApplication.instance().aboutQt())
@@ -128,41 +126,17 @@ class MainWindow(QMainWindow):
         p.close()
         if page == 1:
             self.loadProgress.setRange(0, p.pages)
-        self.loadProgress.setValue(page)
+            self.loadProgress.setValue(page)
         QApplication.processEvents()
         print p.pages
         print len(p.packages)
         
-        def configureButton(b, d):
-                    b.setText("%s, Karma %s%s, %s" % (d["version"], d["karma"], d["status"], d["waiting"]))
-                    if d["voted"]:
-                        # b.setEnabled(False) # can't disable as then you couldn't change your vote
-                        if d["myvote"]:
-                            b.setStyleSheet("QPushButton{ border-color: green; color: white }")
-                        else:
-                            b.setStyleSheet("QPushButton{ border-color: red; color: white }")
-                    elif d["status"]:
-                        b.setStyleSheet("QPushButton{ color: green }")
-                    elif d["karma"] < 0:
-                        b.setStyleSheet("QPushButton{ color: red }")
-                        
-                    b.setProperty("karma", d["karma"])
-                    b.setProperty("name", d["name"])
-                    b.setProperty("pname", d["pname"])
-                    b.setProperty("status", d["status"])
-                    b.setProperty("version", d["version"])
-                    b.setProperty("waiting", d["waiting"])
-                    self.connect(b, SIGNAL("clicked()"), self.vote)
-            
-            
         if len(p.packages) > 0:
             pkglist = ""
             for (name, d) in p.packages.iteritems():
-                b = QPushButton()
-                label = QLabel(d["name"])
-                configureButton(b,d)
-                self.ui.queueLayout.insertWidget(0,b)
-                self.ui.queueLayout.insertWidget(0,label)
+                item = appitem.AppItem(self, d)
+                self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
+                self.ui.queueLayout.insertWidget(0,item)
                 pkglist += " " + name
                 
             package = ""
@@ -180,12 +154,10 @@ class MainWindow(QMainWindow):
                 if line.startswith("Version:") and package and status:
                     for (pname, d) in p.packages.iteritems():         
                         if line.startswith("Version: %s" % d["version"]) and package and status:
-                            b = QPushButton()                                                   
-                            d = p.packages[package]                                             
-                            label = QLabel(d["name"])                                           
-                        configureButton(b,d)                                                    
-                        self.ui.recentLayout.insertWidget(0,b)                                  
-                        self.ui.recentLayout.insertWidget(0,label)                              
+                            item = appitem.AppItem(self, d)
+                            item.ui.pButton_install.setVisible(False) # no install button if already installed
+                            self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
+                            self.ui.recentLayout.insertWidget(0,item)                                  
                     package = ""                                    
                     status = ""                                   
                     
@@ -193,29 +165,36 @@ class MainWindow(QMainWindow):
 #                        if not filename.endswith(".list"):
 #                            continue
                 
+            self.loadProgress.setValue(page)
+            QApplication.processEvents()
             self.loadPackages(page + 1)
         else:
             self.loadProgress.reset()
-            self.sortArea("waiting")
+            self.sortArea()
             
 #       except:
                     
-    def sortArea(self, prop):
+    def sortArea(self):
         tmplist = []
         while self.ui.queueLayout.count() > 1:
-            self.ui.queueLayout.takeAt(0).widget().deleteLater()
             tmplist.append(self.ui.queueLayout.takeAt(0).widget())
-        s = sorted(tmplist, key=lambda x: x.property(prop).toByteArray(), reverse=True)
+        s = sorted(tmplist, key=lambda x: x.waiting, reverse=True) # reverse as QA is a LIFO (should be, anyway)
         for elem in s:
-            label = QLabel(elem.property("name").toString())
             self.ui.queueLayout.insertWidget(0, elem)
-            self.ui.queueLayout.insertWidget(0, label)
+            
+        tmplist = []
+        while self.ui.recentLayout.count() > 1:
+            tmplist.append(self.ui.recentLayout.takeAt(0).widget())
+        s = sorted(tmplist, key=lambda x: x.waiting) # not reverse as the already installed section is LIFO
+        for elem in s:
+            self.ui.recentLayout.insertWidget(0, elem)
         
     def vote(self):
         votedialog = vote.Vote(self)
-        votedialog.setWindowTitle(self.sender().property("name").toString() + " " + self.sender().property("version").toString())
-        votedialog.pname = self.sender().property("pname").toString()
-        votedialog.version = self.sender().property("version").toString()
+        p = self.sender().parent()
+        votedialog.setWindowTitle(p.name + " " + p.version)
+        votedialog.pname = p.pname
+        votedialog.version = p.version
         votedialog.show()
     
     @pyqtSlot(bool)

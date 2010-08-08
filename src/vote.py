@@ -70,9 +70,9 @@ class Vote(QMainWindow):
       
     def thumb(self, b):
         if b:
-            QMessageBox.information(self, "Pass :)","Package thumbed up. Or at least it would be if this method was implemented :)")
+            QMessageBox.information(self, "Pass :)","Package thumbed up. Or at least it would be if this method was implemented :) I take patches.")
         else:
-            QMessageBox.information(self, "Fail :(","Package thumbed down. Or at least it would be if this method was implemented :)")
+            QMessageBox.information(self, "Fail :(","Package thumbed down. Or at least it would be if this method was implemented :) I take patches.")
     
     
         
