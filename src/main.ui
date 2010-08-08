@@ -11,10 +11,16 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>KISStester</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -50,16 +56,19 @@
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
+      <widget class="QWidget" name="recentContents">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>866</width>
-         <height>297</height>
+         <width>868</width>
+         <height>317</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="recentLayout">
+        <property name="margin">
+         <number>0</number>
+        </property>
         <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
@@ -82,16 +91,19 @@
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+      <widget class="QWidget" name="queueContents">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>866</width>
-         <height>296</height>
+         <width>868</width>
+         <height>316</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="queueLayout">
+        <property name="margin">
+         <number>0</number>
+        </property>
         <item>
          <spacer name="verticalSpacer_2">
           <property name="orientation">
@@ -125,12 +137,12 @@
      <string>Fremantle</string>
     </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionReload_repository_data"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menuFremantle"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
@@ -144,6 +156,11 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionReload_repository_data">
+   <property name="text">
+    <string>Reload repository data</string>
    </property>
   </action>
  </widget>

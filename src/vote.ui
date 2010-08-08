@@ -22,63 +22,63 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="cBox_bug">
      <property name="text">
       <string>Has proper bugtracking</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_2">
+    <widget class="QCheckBox" name="cBox_lic">
      <property name="text">
       <string>Contains only properly licensed content</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_3">
+    <widget class="QCheckBox" name="cBox_dub">
      <property name="text">
       <string>No dubious content (adult, violence, racism, etc)</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_4">
+    <widget class="QCheckBox" name="cBox_brk">
      <property name="text">
       <string>No broken basic functionality</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_5">
+    <widget class="QCheckBox" name="cBox_opt">
      <property name="text">
       <string>Optified</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_6">
+    <widget class="QCheckBox" name="cBox_cpu">
      <property name="text">
       <string>No unreasonable CPU or resource usage</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_8">
+    <widget class="QCheckBox" name="cBox_pwr">
      <property name="text">
       <string>No power management issues</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="pButton_detail">
      <property name="text">
       <string>Detailed description of the above criteria</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="pButton_page">
      <property name="text">
       <string>Go to maemo.org testing page</string>
      </property>
@@ -97,14 +97,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="passButton">
        <property name="text">
         <string>PASS</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="failButton">
        <property name="text">
         <string>FAIL</string>
        </property>
