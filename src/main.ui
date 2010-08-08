@@ -26,7 +26,7 @@
       <item>
        <widget class="QPushButton" name="recentButton">
         <property name="text">
-         <string>Recently installed</string>
+         <string>Already installed</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -39,7 +39,7 @@
       <item>
        <widget class="QPushButton" name="queueButton">
         <property name="text">
-         <string>QA Queue</string>
+         <string>Complete QA Queue</string>
         </property>
         <property name="checkable">
          <bool>true</bool>

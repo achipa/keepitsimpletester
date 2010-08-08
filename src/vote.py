@@ -1,4 +1,5 @@
 import os
+import webbrowser
 
 try:
     from PyQt4.QtGui import *
@@ -14,16 +15,20 @@ try:
 except:
     import subprocess
     subprocess.call(["pyuic4", "vote.ui", "-o", "vote_ui.py"])
-from vote_ui import Ui_Dialog
+from vote_ui import Ui_MainWindow
 
 class Vote(QMainWindow):
     def __init__(self, parent=0):
         QMainWindow.__init__(self,parent)
-        self.ui = Ui_Dialog()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         try:
             self.setAttribute(Qt.WA_Maemo5StackedWindow)
         except: pass
+        
+        self.pname = ""
+        self.version = ""
+        
         self.ui.passButton.setEnabled(False)
         self.ui.failButton.setEnabled(False)
         self.connect(self.ui.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
@@ -36,6 +41,9 @@ class Vote(QMainWindow):
         
         self.connect(self.ui.textEdit, SIGNAL("textChanged()"), self.unlockCheck)
        
+        self.connect(self.ui.pButton_detail, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://wiki.maemo.org/Extras-testing/QA_Checklist"))
+        self.connect(self.ui.pButton_page, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://maemo.org/packages/package_instance/view/fremantle_extras-testing_free_armel/%s/%s/" % (self.pname, self.version)))
+                     
         self.connect(self.ui.failButton, SIGNAL("clicked(bool)"), self.failVote)
         self.connect(self.ui.passButton, SIGNAL("clicked(bool)"), self.passVote)
         
@@ -52,11 +60,11 @@ class Vote(QMainWindow):
             self.ui.failButton.setEnabled(False)
             
 
-    @pyqtSlot(bool)
+    @pyqtSlot()
     def passVote(self):
         self.thumb(True)
       
-    @pyqtSlot(bool)
+    @pyqtSlot()
     def failVote(self):
         self.thumb(False)
       

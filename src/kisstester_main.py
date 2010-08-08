@@ -20,8 +20,11 @@ except Exception, e:
 try:
     if os.path.getmtime("main.ui") > os.path.getmtime("main_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
+    if os.path.getmtime("kisstester.qrc") > os.path.getmtime("kisstester_rc.py") and not os.path.exists("/dev/mmcblk0"):
+        raise Exception()
 except Exception, e:
     subprocess.call(["pyuic4", "main.ui", "-o", "main_ui.py"])
+    subprocess.call(["pyrcc4", "kisstester.qrc", "-o", "kisstester_rc.py"])
 from main_ui import Ui_MainWindow
     
 import settings
@@ -34,6 +37,9 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        try:
+            self.setAttribute(Qt.WA_Maemo5StackedWindow)
+        except: pass
  
         self.settings = settings.Settings()
         self.loggedin = False
@@ -129,9 +135,9 @@ class MainWindow(QMainWindow):
                     if d["voted"]:
                         b.setEnabled(False)
                         if d["myvote"]:
-                            b.setStyleSheet("QPushButton{ background-color: green }")
+                            b.setStyleSheet("QPushButton{ background-color: green; color: white }")
                         else:
-                            b.setStyleSheet("QPushButton{ background-color: red }")
+                            b.setStyleSheet("QPushButton{ background-color: red; color: white }")
                     elif d["status"]:
                         b.setStyleSheet("QPushButton{ color: green }")
                     elif d["karma"] < 0:
@@ -139,6 +145,7 @@ class MainWindow(QMainWindow):
                         
                     b.setProperty("karma", d["karma"])
                     b.setProperty("name", d["name"])
+                    b.setProperty("pname", d["pname"])
                     b.setProperty("status", d["status"])
                     b.setProperty("version", d["version"])
                     b.setProperty("waiting", d["waiting"])
@@ -156,17 +163,30 @@ class MainWindow(QMainWindow):
                 pkglist += " " + name
                 
             package = ""
+            status = ""
             rawrecent = subprocess.Popen(["/usr/bin/dpkg -s %s" % str(pkglist)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
             for line in rawrecent.splitlines():
                 if line.startswith("Package:"):
                     package = line.split(": ")[1]
                 if line.startswith("Status:") and line.endswith(" installed"):
+                    status = "installed"
+                if line.startswith("Version:"):
+                    print d["version"]
+                    print package
+                    print status
+                if line.startswith("Version: %s" % d["version"]) and package and status:
                     b = QPushButton()
                     d = p.packages[package]
                     label = QLabel(d["name"])
                     configureButton(b,d)
                     self.ui.recentLayout.insertWidget(0,b)
                     self.ui.recentLayout.insertWidget(0,label)
+                    package = ""
+                    status = ""
+                
+                if len(line) == 0:
+                    package = ""
+                    status = ""
                     
 #                    for filename in os.listdir("/var/lib/dpkg/info"):
 #                        if not filename.endswith(".list"):
@@ -193,6 +213,8 @@ class MainWindow(QMainWindow):
     def vote(self):
         votedialog = vote.Vote(self)
         votedialog.setWindowTitle(self.sender().property("name").toString() + " " + self.sender().property("version").toString())
+        votedialog.pname = self.sender().property("pname").toString()
+        votedialog.version = self.sender().property("version").toString()
         votedialog.show()
     
     @pyqtSlot(bool)

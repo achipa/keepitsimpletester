@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Aug  7 23:00:18 2010
+# Created: Sun Aug  8 15:42:11 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -84,8 +84,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "KISStester", None, QtGui.QApplication.UnicodeUTF8))
-        self.recentButton.setText(QtGui.QApplication.translate("MainWindow", "Recently installed", None, QtGui.QApplication.UnicodeUTF8))
-        self.queueButton.setText(QtGui.QApplication.translate("MainWindow", "QA Queue", None, QtGui.QApplication.UnicodeUTF8))
+        self.recentButton.setText(QtGui.QApplication.translate("MainWindow", "Already installed", None, QtGui.QApplication.UnicodeUTF8))
+        self.queueButton.setText(QtGui.QApplication.translate("MainWindow", "Complete QA Queue", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFremantle.setTitle(QtGui.QApplication.translate("MainWindow", "Fremantle", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSettings.setText(QtGui.QApplication.translate("MainWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))

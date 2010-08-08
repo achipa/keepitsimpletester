@@ -57,7 +57,8 @@ class MyHTMLParser(HTMLParser):
         except: pass
             
         try:
-            if tag == "div" and (attrs["class"]=="fav_btn" and attrs["class"]=="bury_btn"):
+            if tag == "div" and (attrs["class"]=="fav_btn" or attrs["class"]=="bury_btn"):
+                print "kutyaamajom"
                 self.package["voted"] = True
                 self.package["myvote"] = attrs["class"]=="fav_btn"
         except: pass

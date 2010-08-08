@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>buried.png</file>
+    <file>favourite.png</file>
+  </qresource>
+</RCC>
