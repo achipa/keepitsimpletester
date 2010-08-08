@@ -80,7 +80,7 @@ class MainWindow(QMainWindow):
         self.loadProgress.setValue(0)
         self.loadProgress.show()
         QApplication.processEvents()
-        maemodata = { "username" : str(self.settings.data.value("username").toString()), "password" : str(self.settings.data.value("password").toString()), "midcom_services_auth_frontend_form_submit" : "Login" }
+        maemodata = { "username" : str(self.settings.data.value("username").toString()).lower(), "password" : str(self.settings.data.value("password").toString()), "midcom_services_auth_frontend_form_submit" : "Login" }
         print maemodata
         try:
             r = self.opener.open("https://maemo.org", urllib.urlencode(maemodata))
