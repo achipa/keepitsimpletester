@@ -52,9 +52,9 @@ install: build
 	mkdir -p $(CURDIR)/debian/kisstester/opt/kisstester
 	install -D -m 0755 -o root -g root src/kisstester $(CURDIR)/debian/kisstester/opt/kisstester/kisstester
 	install -D -m 0644 -o root -g root src/*py $(CURDIR)/debian/kisstester/opt/kisstester/
-	install -D -m 0644 -o root -g root src/icons/64x64/kisstester.png ${DESTDIR}/usr/share/icons/hicolor/scalable/hildon/kisstester.png
-	install -D -m 0644 -o root -g root src/icons/48x48/kisstester.png ${DESTDIR}/usr/share/icons/hicolor/48x48/hildon/kisstester.png
-	install -D -m 0644 -o root -g root src/kisstester.desktop ${DESTDIR}/usr/share/applications/hildon/kisstester.desktop
+	install -D -m 0644 -o root -g root src/icons/64x64/kisstester.png $(CURDIR)/debian/kisstester/usr/share/icons/hicolor/scalable/hildon/kisstester.png
+	install -D -m 0644 -o root -g root src/icons/48x48/kisstester.png $(CURDIR)/debian/kisstester/usr/share/icons/hicolor/48x48/hildon/kisstester.png
+	install -D -m 0644 -o root -g root src/kisstester.desktop $(CURDIR)/debian/kisstester/usr/share/applications/hildon/kisstester.desktop
 
 	# $(MAKE) DESTDIR=$(CURDIR)/debian/kisstester install
   # install -d $(CURDIR)/debian/tmp/usr/bin

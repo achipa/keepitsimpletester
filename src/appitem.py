@@ -12,7 +12,7 @@ except Exception, e:
     exit()
 
 try:
-    if os.path.getmtime("appitem.ui") > os.path.getmtime("appitem_ui.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("appitem.ui") and os.path.getmtime("appitem.ui") > os.path.getmtime("appitem_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except:
     import subprocess

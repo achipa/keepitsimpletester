@@ -9,7 +9,7 @@ except Exception, e:
     exit()
 
 try:
-    if os.path.getmtime("settings.ui") > os.path.getmtime("settings_ui.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("settings.ui") and os.path.getmtime("settings.ui") > os.path.getmtime("settings_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except:
     import subprocess

@@ -10,7 +10,7 @@ except Exception, e:
     exit()
 
 try:
-    if os.path.getmtime("vote.ui") > os.path.getmtime("vote_ui.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("vote.ui") and os.path.getmtime("vote.ui") > os.path.getmtime("vote_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except:
     import subprocess
