@@ -28,9 +28,10 @@ class Vote(QMainWindow):
         
         self.pname = ""
         self.version = ""
+        self.id = ""
+        self.failUnlocked = False
+        self.passUnlocked = True
         
-        self.ui.passButton.setEnabled(False)
-        self.ui.failButton.setEnabled(False)
         self.connect(self.ui.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.ui.cBox_brk, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.ui.cBox_bug, SIGNAL("clicked(bool)"), self.unlockCheck)
@@ -50,23 +51,29 @@ class Vote(QMainWindow):
     @pyqtSlot()
     def unlockCheck(self):
         if self.ui.cBox_cpu.isChecked() and self.ui.cBox_brk.isChecked() and self.ui.cBox_bug.isChecked() and self.ui.cBox_dub.isChecked() and self.ui.cBox_lic.isChecked() and self.ui.cBox_opt.isChecked() and self.ui.cBox_pwr.isChecked() :
-            self.ui.passButton.setEnabled(True)
+            self.passUnlocked = True
         else:
-            self.ui.passButton.setEnabled(False)
+            self.passUnlocked = False
             
         if len(self.ui.textEdit.toPlainText()) > 5:
-            self.ui.failButton.setEnabled(True)
+            self.failUnlocked = True
         else:
-            self.ui.failButton.setEnabled(False)
+            self.failUnlocked = False
             
 
     @pyqtSlot()
     def passVote(self):
-        self.thumb(True)
+        if self.passUnlocked:
+            self.thumb(True)
+        else:
+            QMessageBox.information(self, "Pass criteria missing","You need to check (or have a good indication) of all the criteria above (i.e. all the checkboxes need to be checked)")
       
     @pyqtSlot()
     def failVote(self):
-        self.thumb(False)
+        if self.passUnlocked:
+            self.thumb(False)
+        else:
+            QMessageBox.information(self, "Fail criteria missing","You need to supply a reason for failing this package. Remember, it's not about whether you like the application, how pretty or cool it is - it is about whether it negatively impacts your usage of your device and if it is well-behaved (isn't illegal, is possible to report errors, etc). The slickness/coolness of the app will be judged by awarding it with 1-5 stars in Extras, not here.")
       
     def thumb(self, b):
         if b:

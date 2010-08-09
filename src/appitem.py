@@ -1,5 +1,7 @@
 
 import os
+import urllib2
+from xml.dom.minidom import parseString
 
 try:
     from PyQt4.QtGui import *
@@ -30,6 +32,7 @@ class AppItem(QWidget):
         self.waiting = data["waiting"]
         self.voted = data["voted"]
         self.myvote = data["myvote"]
+        self.id = ""
         
         self.configure()
         
@@ -64,3 +67,24 @@ class AppItem(QWidget):
     def debDetails(self):
         QMessageBox.information(self, "%s %s" % (self.name, self.version), "Insert details functionality here (REST, or, probably better, from apt-cache show). I take patches.")
         
+    @pyqtSlot()
+    def getId(self): # ugliest REST hack on the planet
+        if self.id:
+            return id
+        
+        xmlstr = urllib2.urlopen("http://maemo.org/packages/api/v1/content/data/?parent=fremantle_extras-testing_free_armel&search=%s" % self.pname).read()
+        domm = xml.dom.minidom.parseString(xmlstr)
+        for es in domm.getElementsByTagName("content"):
+            tmpid = ""
+            for child in es.childNodes:
+                if child.tagName == "id":
+                    tmpid = child.childNodes[0].data
+                if child.tagName == "name":
+                    tmpname = child.childNodes[0].data
+
+            if tmpid and tmpname == self.name:
+                self.id = tmpid
+                
+        return self.id
+    
+

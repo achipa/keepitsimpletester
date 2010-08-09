@@ -1,1 +1,22 @@
 http://maemo.org/packages/api/v1/content/data/?categories=desktop&parent=fremantle_extras-testing_free_armel&ordermode=new
+
+http://maemo.org/packages/api/v1/content/data/?parent=fremantle_extras-testing_free_armel&search=fheroes2
+
+http://www.freedesktop.org/wiki/Specifications/open-collaboration-services#vote
+# Syntax: /v1/content/vote/"contentid"
+# HTTP Method: POST
+# Arguments: contentid - Id of a content
+# POST Arguments: vote - The vote. "good" or "bad" 
+
+http://maemo.org/packages/api/v1/comments/data/1/450c69a4a68811de965317405429a5f7a5f7/
+
+[15:09] <X-Fade> http://maemo.org/packages/api/v1/person/check/
+[15:09] <X-Fade> Basic auth, allows you to check login and verify username.
+[15:09] <X-Fade> http://maemo.org/packages/api/v1/person/get/achipa/
+[15:09] <X-Fade> Lookup username
+[15:10] <X-Fade> http://maemo.org/packages/api/v1/favs/data/1/450c69a4a68811de965317405429a5f7a5f7/
+[15:10] <X-Fade> Shows all thumbs on an app.
+[15:10] <X-Fade> 1 = up, 0 = down
+[15:11] <X-Fade> Still working on the voting part.
+[15:11] <X-Fade> The favs part of the api is not official.
+[15:12] <X-Fade> So that can change with time, but at least you have something for now.
