@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=0.1
+Encoding=UTF-8
+Name=KISStester
+Icon=kisstester
+Exec=/opt/kisstester/kisstester
+Type=Application

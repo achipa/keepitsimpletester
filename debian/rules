@@ -48,6 +48,9 @@ install: build
 	dh_installdirs
 	dh_install
 	# Add here commands to install the package into debian/kisstester.
+
+	mkdir -p $(CURDIR)/debian/kisstester/opt/kisstester
+	cp src/kisstester $(CURDIR)/src/*py $(CURDIR)/debian/kisstester/opt/kisstester/
 	# $(MAKE) DESTDIR=$(CURDIR)/debian/kisstester install
   # install -d $(CURDIR)/debian/tmp/usr/bin
   # install -m 0755 usr/bin/kisstester $(CURDIR)/debian/tmp/usr/bin/mirror
