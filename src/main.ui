@@ -61,8 +61,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>868</width>
-         <height>317</height>
+         <width>866</width>
+         <height>316</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="recentLayout">
@@ -96,7 +96,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>868</width>
+         <width>866</width>
          <height>316</height>
         </rect>
        </property>
@@ -129,7 +129,7 @@
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFremantle">
@@ -138,6 +138,8 @@
     </property>
     <addaction name="actionSettings"/>
     <addaction name="actionReload_repository_data"/>
+    <addaction name="actionCommentList"/>
+    <addaction name="actionTesterList"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
@@ -161,6 +163,16 @@
   <action name="actionReload_repository_data">
    <property name="text">
     <string>Reload repository data</string>
+   </property>
+  </action>
+  <action name="actionCommentList">
+   <property name="text">
+    <string>Package comment archive</string>
+   </property>
+  </action>
+  <action name="actionTesterList">
+   <property name="text">
+    <string>Join the testing squad</string>
    </property>
   </action>
  </widget>

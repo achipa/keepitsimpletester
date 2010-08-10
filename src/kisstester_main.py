@@ -7,6 +7,7 @@ import time
 import cookielib, urllib2, urllib
 import parser
 import logging
+import webbrowser
 
 try:
     from PyQt4.QtGui import *
@@ -66,6 +67,12 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.actionReload_repository_data, SIGNAL("triggered()"),
                      self.loadPackages)
         
+        self.connect(self.ui.actionCommentList, SIGNAL("triggered()"),
+                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-comments"))
+
+        self.connect(self.ui.actionTesterList, SIGNAL("triggered()"),
+                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
+                                             
         self.connect(self.ui.recentButton, SIGNAL("toggled(bool)"),
                      self.showRecent)
         

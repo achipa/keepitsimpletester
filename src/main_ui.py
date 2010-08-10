@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Aug  8 20:58:07 2010
+# Created: Wed Aug 11 01:19:39 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.recentScroll.setWidgetResizable(True)
         self.recentScroll.setObjectName("recentScroll")
         self.recentContents = QtGui.QWidget(self.recentScroll)
-        self.recentContents.setGeometry(QtCore.QRect(0, 0, 868, 317))
+        self.recentContents.setGeometry(QtCore.QRect(0, 0, 866, 316))
         self.recentContents.setObjectName("recentContents")
         self.recentLayout = QtGui.QVBoxLayout(self.recentContents)
         self.recentLayout.setMargin(0)
@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
         self.queueScroll.setWidgetResizable(True)
         self.queueScroll.setObjectName("queueScroll")
         self.queueContents = QtGui.QWidget(self.queueScroll)
-        self.queueContents.setGeometry(QtCore.QRect(0, 0, 868, 316))
+        self.queueContents.setGeometry(QtCore.QRect(0, 0, 866, 316))
         self.queueContents.setObjectName("queueContents")
         self.queueLayout = QtGui.QVBoxLayout(self.queueContents)
         self.queueLayout.setMargin(0)
@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.queueScroll)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 888, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 888, 21))
         self.menubar.setObjectName("menubar")
         self.menuFremantle = QtGui.QMenu(self.menubar)
         self.menuFremantle.setObjectName("menuFremantle")
@@ -73,8 +73,14 @@ class Ui_MainWindow(object):
         self.actionAbout_Qt.setObjectName("actionAbout_Qt")
         self.actionReload_repository_data = QtGui.QAction(MainWindow)
         self.actionReload_repository_data.setObjectName("actionReload_repository_data")
+        self.actionCommentList = QtGui.QAction(MainWindow)
+        self.actionCommentList.setObjectName("actionCommentList")
+        self.actionTesterList = QtGui.QAction(MainWindow)
+        self.actionTesterList.setObjectName("actionTesterList")
         self.menuFremantle.addAction(self.actionSettings)
         self.menuFremantle.addAction(self.actionReload_repository_data)
+        self.menuFremantle.addAction(self.actionCommentList)
+        self.menuFremantle.addAction(self.actionTesterList)
         self.menuFremantle.addAction(self.actionAbout)
         self.menuFremantle.addAction(self.actionAbout_Qt)
         self.menubar.addAction(self.menuFremantle.menuAction())
@@ -91,4 +97,6 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout_Qt.setText(QtGui.QApplication.translate("MainWindow", "About Qt", None, QtGui.QApplication.UnicodeUTF8))
         self.actionReload_repository_data.setText(QtGui.QApplication.translate("MainWindow", "Reload repository data", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCommentList.setText(QtGui.QApplication.translate("MainWindow", "Package comment archive", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionTesterList.setText(QtGui.QApplication.translate("MainWindow", "Join the testing squad", None, QtGui.QApplication.UnicodeUTF8))
 
