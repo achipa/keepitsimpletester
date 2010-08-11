@@ -78,7 +78,6 @@ class AppItem(QWidget):
             tmpid = "" 
             tmpname = ""
             for child in es.childNodes:
-                print child
                 try:
                     if child.tagName == "id":
                         tmpid = child.childNodes[0].data

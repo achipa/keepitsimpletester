@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
                      SLOT("show()"))
         
         self.connect(self.ui.actionAbout, SIGNAL("triggered()"), 
-                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WinIDE. Happy testing !"))
+                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WingIDE. Happy testing !"))
         
         self.connect(self.ui.actionAbout_Qt, SIGNAL("triggered()"), 
                      lambda: QApplication.instance().aboutQt())

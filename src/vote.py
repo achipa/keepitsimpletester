@@ -95,7 +95,10 @@ class Vote(QMainWindow):
         self.opener = urllib2.build_opener(auth_handler)
 
         try:
-            r = self.opener.open("https://maemo.org/packages/api/v1/favs/add/", urllib.urlencode(votedata))
+            if os.path.exists("~/.kisstester_rw"):
+                r = self.opener.open("https://maemo.org/packages/api/v1/favs/add/", urllib.urlencode(votedata))
+            else:
+                QMessageBox.warning(self, "WARNING", "KISStester operating in read-only mode. Please check the testing-squad mailing-list before you do something you don't want to :)")
             # voting is slow, maybe we need a progress bar here, too...
             ret = r.read()
             if b:
