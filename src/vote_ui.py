@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vote.ui'
 #
-# Created: Sun Aug  8 15:20:21 2010
+# Created: Wed Aug 11 21:32:56 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,10 +22,9 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget(self.scrollArea)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 780, 569))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 778, 569))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_2.setSpacing(3)
         self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_2 = QtGui.QLabel(self.scrollAreaWidgetContents)
@@ -52,12 +51,15 @@ class Ui_MainWindow(object):
         self.cBox_pwr = QtGui.QCheckBox(self.scrollAreaWidgetContents)
         self.cBox_pwr.setObjectName("cBox_pwr")
         self.verticalLayout_2.addWidget(self.cBox_pwr)
-        self.pButton_detail = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.pButton_detail.setObjectName("pButton_detail")
-        self.verticalLayout_2.addWidget(self.pButton_detail)
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.pButton_page = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pButton_page.setObjectName("pButton_page")
-        self.verticalLayout_2.addWidget(self.pButton_page)
+        self.horizontalLayout.addWidget(self.pButton_page)
+        self.pButton_detail = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.pButton_detail.setObjectName("pButton_detail")
+        self.horizontalLayout.addWidget(self.pButton_detail)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
         self.label = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
@@ -83,7 +85,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.scrollArea)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
@@ -100,8 +102,8 @@ class Ui_MainWindow(object):
         self.cBox_opt.setText(QtGui.QApplication.translate("MainWindow", "Optified", None, QtGui.QApplication.UnicodeUTF8))
         self.cBox_cpu.setText(QtGui.QApplication.translate("MainWindow", "No unreasonable CPU or resource usage", None, QtGui.QApplication.UnicodeUTF8))
         self.cBox_pwr.setText(QtGui.QApplication.translate("MainWindow", "No power management issues", None, QtGui.QApplication.UnicodeUTF8))
-        self.pButton_detail.setText(QtGui.QApplication.translate("MainWindow", "Detailed description of the above criteria", None, QtGui.QApplication.UnicodeUTF8))
-        self.pButton_page.setText(QtGui.QApplication.translate("MainWindow", "Go to maemo.org testing page", None, QtGui.QApplication.UnicodeUTF8))
+        self.pButton_page.setText(QtGui.QApplication.translate("MainWindow", "Use classic (web) interface", None, QtGui.QApplication.UnicodeUTF8))
+        self.pButton_detail.setText(QtGui.QApplication.translate("MainWindow", "QA docs", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Detailed description of issues found (required for failing an application):", None, QtGui.QApplication.UnicodeUTF8))
         self.passButton.setText(QtGui.QApplication.translate("MainWindow", "PASS", None, QtGui.QApplication.UnicodeUTF8))
         self.failButton.setText(QtGui.QApplication.translate("MainWindow", "FAIL", None, QtGui.QApplication.UnicodeUTF8))

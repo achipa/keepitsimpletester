@@ -32,7 +32,7 @@
          <x>0</x>
          <y>0</y>
          <width>866</width>
-         <height>329</height>
+         <height>332</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="recentLayout">
@@ -67,7 +67,7 @@
          <x>0</x>
          <y>0</y>
          <width>866</width>
-         <height>329</height>
+         <height>331</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="queueLayout">
@@ -99,19 +99,19 @@
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFremantle">
     <property name="title">
      <string>Fremantle</string>
     </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAbout_Qt"/>
     <addaction name="actionSettings"/>
     <addaction name="actionReload_repository_data"/>
     <addaction name="actionCommentList"/>
     <addaction name="actionTesterList"/>
-    <addaction name="actionAbout"/>
-    <addaction name="actionAbout_Qt"/>
     <addaction name="actionFilter_packages"/>
    </widget>
    <addaction name="menuFremantle"/>
@@ -148,7 +148,7 @@
   </action>
   <action name="actionFilter_packages">
    <property name="text">
-    <string>Filter packages</string>
+    <string>Package filter</string>
    </property>
   </action>
  </widget>

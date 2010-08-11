@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Wed Aug 11 01:19:39 2010
+# Created: Wed Aug 11 21:14:27 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,24 +19,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSpacing(3)
         self.verticalLayout.setContentsMargins(-1, -1, -1, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.recentButton = QtGui.QPushButton(self.centralwidget)
-        self.recentButton.setCheckable(True)
-        self.recentButton.setAutoExclusive(True)
-        self.recentButton.setObjectName("recentButton")
-        self.horizontalLayout.addWidget(self.recentButton)
-        self.queueButton = QtGui.QPushButton(self.centralwidget)
-        self.queueButton.setCheckable(True)
-        self.queueButton.setAutoExclusive(True)
-        self.queueButton.setObjectName("queueButton")
-        self.horizontalLayout.addWidget(self.queueButton)
-        self.verticalLayout.addLayout(self.horizontalLayout)
         self.recentScroll = QtGui.QScrollArea(self.centralwidget)
         self.recentScroll.setWidgetResizable(True)
         self.recentScroll.setObjectName("recentScroll")
         self.recentContents = QtGui.QWidget(self.recentScroll)
-        self.recentContents.setGeometry(QtCore.QRect(0, 0, 866, 316))
+        self.recentContents.setGeometry(QtCore.QRect(0, 0, 866, 332))
         self.recentContents.setObjectName("recentContents")
         self.recentLayout = QtGui.QVBoxLayout(self.recentContents)
         self.recentLayout.setMargin(0)
@@ -49,7 +36,7 @@ class Ui_MainWindow(object):
         self.queueScroll.setWidgetResizable(True)
         self.queueScroll.setObjectName("queueScroll")
         self.queueContents = QtGui.QWidget(self.queueScroll)
-        self.queueContents.setGeometry(QtCore.QRect(0, 0, 866, 316))
+        self.queueContents.setGeometry(QtCore.QRect(0, 0, 866, 331))
         self.queueContents.setObjectName("queueContents")
         self.queueLayout = QtGui.QVBoxLayout(self.queueContents)
         self.queueLayout.setMargin(0)
@@ -77,12 +64,15 @@ class Ui_MainWindow(object):
         self.actionCommentList.setObjectName("actionCommentList")
         self.actionTesterList = QtGui.QAction(MainWindow)
         self.actionTesterList.setObjectName("actionTesterList")
+        self.actionFilter_packages = QtGui.QAction(MainWindow)
+        self.actionFilter_packages.setObjectName("actionFilter_packages")
+        self.menuFremantle.addAction(self.actionAbout)
+        self.menuFremantle.addAction(self.actionAbout_Qt)
         self.menuFremantle.addAction(self.actionSettings)
         self.menuFremantle.addAction(self.actionReload_repository_data)
         self.menuFremantle.addAction(self.actionCommentList)
         self.menuFremantle.addAction(self.actionTesterList)
-        self.menuFremantle.addAction(self.actionAbout)
-        self.menuFremantle.addAction(self.actionAbout_Qt)
+        self.menuFremantle.addAction(self.actionFilter_packages)
         self.menubar.addAction(self.menuFremantle.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -90,13 +80,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "KISStester", None, QtGui.QApplication.UnicodeUTF8))
-        self.recentButton.setText(QtGui.QApplication.translate("MainWindow", "Already installed", None, QtGui.QApplication.UnicodeUTF8))
-        self.queueButton.setText(QtGui.QApplication.translate("MainWindow", "Complete QA Queue", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFremantle.setTitle(QtGui.QApplication.translate("MainWindow", "Fremantle", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSettings.setText(QtGui.QApplication.translate("MainWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSettings.setText(QtGui.QApplication.translate("MainWindow", "Login settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout_Qt.setText(QtGui.QApplication.translate("MainWindow", "About Qt", None, QtGui.QApplication.UnicodeUTF8))
         self.actionReload_repository_data.setText(QtGui.QApplication.translate("MainWindow", "Reload repository data", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCommentList.setText(QtGui.QApplication.translate("MainWindow", "Package comment archive", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTesterList.setText(QtGui.QApplication.translate("MainWindow", "Join the testing squad", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionFilter_packages.setText(QtGui.QApplication.translate("MainWindow", "Filter packages", None, QtGui.QApplication.UnicodeUTF8))
 

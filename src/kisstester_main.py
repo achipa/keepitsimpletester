@@ -58,26 +58,28 @@ class MainWindow(QMainWindow):
         self.loadProgress.setVisible(False)
         self.loadProgress.setWindowModality(Qt.WindowModal)
         self.ui.queueScroll.setVisible(False)
-        self.ui.recentScroll.setVisible(False)
         
         self.connect(self.ui.actionSettings, SIGNAL("triggered()"), self.settings, 
-                     SLOT("show()"))
+                    SLOT("show()"))
         
         self.connect(self.ui.actionAbout, SIGNAL("triggered()"), 
-                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WingIDE. Happy testing !"))
+                    lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WingIDE. Happy testing !"))
         
         self.connect(self.ui.actionAbout_Qt, SIGNAL("triggered()"), 
-                     lambda: QApplication.instance().aboutQt())
+                    lambda: QApplication.instance().aboutQt())
         
         self.connect(self.ui.actionReload_repository_data, SIGNAL("triggered()"),
-                     self.loadPackages)
+                    self.loadPackages)
         
         self.connect(self.ui.actionCommentList, SIGNAL("triggered()"),
-                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-comments"))
+                    lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-comments"))
 
         self.connect(self.ui.actionTesterList, SIGNAL("triggered()"),
-                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
+                    lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
                                              
+        self.connect(self.ui.actionFilter_packages, SIGNAL("triggered()"),
+                    self.pickFilter)
+        
         self.loginAvailable.connect(self.loadPackages)
                          
         self.showRecent(True)
@@ -171,6 +173,8 @@ class MainWindow(QMainWindow):
         else:
             self.loadProgress.reset()
             self.sortArea()
+            if self.ui.recentContents.isVisible and self.ui.recentLayout.count() < 2:
+                QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. If you want to install such software, please change the package filter in the menu to show the complete QA queue")
             
 #       except:
                     
@@ -212,24 +216,23 @@ class MainWindow(QMainWindow):
     
     @pyqtSlot(bool)
     def showRecent(self, b):
-        print b
         self.ui.recentScroll.setVisible(b)
         self.ui.queueScroll.setVisible(not b)
         if not self.loggedin:
             self.login()
+        elif b and self.ui.recentLayout.count() < 2:
+            QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. If you want to install such software, please change the package filter in the menu to show the complete QA queue")
         
     @pyqtSlot()
     def pickFilter(self):
         item = QStringList()
         item.append("Recently installed")
         item.append("QA queue")
-        ok = True
-        ret = QInputDialog.getItem(self, "Shown packages", "", item, 0, False, ok)
-        if ok:
-            if item.indexOf(ret) == 0:
-                self.showRecent(True)
-            else:
-                self.showRecent(False)
+        ret = QInputDialog.getItem(self, "Shown packages", "", item, 0, False)
+        if item.indexOf(ret[0]) != 0:
+            self.showRecent(False)
+        else:
+            self.showRecent(True)
         
 def start():
     mainw = MainWindow()

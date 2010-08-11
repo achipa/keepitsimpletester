@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'settings.ui'
 #
-# Created: Sat Aug  7 20:49:13 2010
+# Created: Wed Aug 11 21:34:28 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(517, 80)
+        Dialog.resize(517, 86)
         self.formLayout_2 = QtGui.QFormLayout(Dialog)
         self.formLayout_2.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout_2.setObjectName("formLayout_2")
@@ -28,7 +28,7 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_2)
         self.passw = QtGui.QLineEdit(Dialog)
-        self.passw.setEchoMode(QtGui.QLineEdit.PasswordEchoOnEdit)
+        self.passw.setEchoMode(QtGui.QLineEdit.Password)
         self.passw.setObjectName("passw")
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.passw)
         self.formLayout_2.setLayout(1, QtGui.QFormLayout.LabelRole, self.formLayout)
