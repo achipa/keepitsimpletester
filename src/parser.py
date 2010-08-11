@@ -26,7 +26,8 @@ class MyHTMLParser(HTMLParser):
             "status" : "",
             "link" : "",
             "imageurl" : "",
-            "waiting" : ""
+            "waiting" : "",
+            "bugtracker" : ""
             }
     
     def __init__(self):

@@ -182,6 +182,7 @@ class MainWindow(QMainWindow):
     def sortArea(self):
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+            QApplication.processEvents()
         except: pass
         tmplist = []
         while self.ui.queueLayout.count() > 1:
@@ -208,6 +209,7 @@ class MainWindow(QMainWindow):
         votedialog.version = p.version
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+            QApplication.processEvents()
         except: pass
         votedialog.id = p.getId()
         try:
@@ -227,7 +229,7 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def pickFilter(self):
         item = QStringList()
-        item.append("Recently installed")
+        item.append("Already installed")
         item.append("QA queue")
         ret = QInputDialog.getItem(self, "Shown packages", "", item, 0, False)
         if item.indexOf(ret[0]) != 0:

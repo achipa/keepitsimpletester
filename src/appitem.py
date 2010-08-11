@@ -2,6 +2,7 @@
 import os
 import urllib2
 from xml.dom.minidom import parseString
+import webbrowser
 
 try:
     from PyQt4.QtGui import *
@@ -20,7 +21,7 @@ except:
 from appitem_ui import Ui_Form
 
 class AppItem(QWidget):
-    def __init__(self, parent=0, data={ 'name' : "", "karma" : 0, "pname" : "", "version" : "", "status" : "", "waiting" : "", "voted" : False, "myvote" : False }):
+    def __init__(self, parent=0, data={ 'name' : "", "karma" : 0, "pname" : "", "version" : "", "status" : "", "waiting" : "", "voted" : False, "myvote" : False, "bugtracker" : "" }):
         QWidget.__init__(self)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
@@ -32,12 +33,17 @@ class AppItem(QWidget):
         self.waiting = data["waiting"]
         self.voted = data["voted"]
         self.myvote = data["myvote"]
+        self.bugtracker = data["bugtracker"]
         self.id = ""
         
+        if not self.bugtracker:
+            self.ui.pButton_bug.setVisible(False)
+            
         self.configure()
         
         self.connect(self.ui.pButton_install, SIGNAL("clicked()"), self.debInstall)
         self.connect(self.ui.pButton_pdetails, SIGNAL("clicked()"), self.debDetails)
+        self.connect(self.ui.pButton_bug, SIGNAL("clicked()"), self.bugReport)
         
 
     @pyqtSlot()
@@ -68,6 +74,15 @@ class AppItem(QWidget):
     def debDetails(self):
         QMessageBox.information(self, "%s %s" % (self.name, self.version), "Insert details functionality here (REST, or, probably better, from apt-cache show). I take patches.")
         
+    @pyqtSlot()
+    def bugReport(self):
+#        if self.bugtracker.startswith("mailto"):
+#            #send mail
+#            pass
+#        else:
+        if self.bugtracker:
+            webbrowser.open(self.bugtracker)
+    
     @pyqtSlot()
     def getId(self): # ugliest REST hack on the planet
         if self.id:
