@@ -174,7 +174,8 @@ class MainWindow(QMainWindow):
             self.loadProgress.reset()
             self.sortArea()
             if self.ui.recentContents.isVisible and self.ui.recentLayout.count() < 2:
-                QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. If you want to install such software, please change the package filter in the menu to show the complete QA queue")
+                QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. Switching to full QA queue view.")
+                self.showRecent(False)
             
 #       except:
                     

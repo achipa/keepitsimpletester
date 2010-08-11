@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Wed Aug 11 21:14:27 2010
+# Created: Wed Aug 11 21:37:00 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -87,5 +87,5 @@ class Ui_MainWindow(object):
         self.actionReload_repository_data.setText(QtGui.QApplication.translate("MainWindow", "Reload repository data", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCommentList.setText(QtGui.QApplication.translate("MainWindow", "Package comment archive", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTesterList.setText(QtGui.QApplication.translate("MainWindow", "Join the testing squad", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionFilter_packages.setText(QtGui.QApplication.translate("MainWindow", "Filter packages", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionFilter_packages.setText(QtGui.QApplication.translate("MainWindow", "Package filter", None, QtGui.QApplication.UnicodeUTF8))
 
