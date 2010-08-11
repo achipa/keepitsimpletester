@@ -7,6 +7,7 @@ import time
 import cookielib, urllib2, urllib
 import parser
 import logging
+import webbrowser
 
 try:
     from PyQt4.QtGui import *
@@ -18,9 +19,9 @@ except Exception, e:
     exit()
 
 try:
-    if os.path.getmtime("main.ui") > os.path.getmtime("main_ui.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("main.ui") and os.path.getmtime("main.ui") > os.path.getmtime("main_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
-    if os.path.getmtime("kisstester.qrc") > os.path.getmtime("kisstester_rc.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("kisstester.qrc") and os.path.getmtime("kisstester.qrc") > os.path.getmtime("kisstester_rc.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except Exception, e:
     subprocess.call(["pyuic4", "main.ui", "-o", "main_ui.py"])
@@ -66,6 +67,12 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.actionReload_repository_data, SIGNAL("triggered()"),
                      self.loadPackages)
         
+        self.connect(self.ui.actionCommentList, SIGNAL("triggered()"),
+                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-comments"))
+
+        self.connect(self.ui.actionTesterList, SIGNAL("triggered()"),
+                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
+                                             
         self.connect(self.ui.recentButton, SIGNAL("toggled(bool)"),
                      self.showRecent)
         

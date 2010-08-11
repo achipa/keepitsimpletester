@@ -20,3 +20,11 @@ http://maemo.org/packages/api/v1/comments/data/1/450c69a4a68811de965317405429a5f
 [15:11] <X-Fade> Still working on the voting part.
 [15:11] <X-Fade> The favs part of the api is not official.
 [15:12] <X-Fade> So that can change with time, but at least you have something for now.
+
+
+[15:42] <X-Fade> Voting:
+[15:42] <X-Fade> wget --post-data='content=46957f1e934411dfbd57954ef8a05a175a17&message=1&type=1' --http-user=usernamehere --http-password=passwordhere http://maemo.org/packages/api/v1/favs/add/
+[15:42] <X-Fade> needs to be POST
+[15:42] <X-Fade> content = id of the package
+[15:43] <X-Fade> message = 1 or 0, up or down
+[15:43] <X-Fade> type=1 is static atm.

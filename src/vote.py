@@ -1,5 +1,6 @@
 import os
 import webbrowser
+import urllib2, urllib
 
 try:
     from PyQt4.QtGui import *
@@ -10,12 +11,14 @@ except Exception, e:
     exit()
 
 try:
-    if os.path.getmtime("vote.ui") > os.path.getmtime("vote_ui.py") and not os.path.exists("/dev/mmcblk0"):
+    if os.path.exists("vote.ui") and os.path.getmtime("vote.ui") > os.path.getmtime("vote_ui.py") and not os.path.exists("/dev/mmcblk0"):
         raise Exception()
 except:
     import subprocess
     subprocess.call(["pyuic4", "vote.ui", "-o", "vote_ui.py"])
 from vote_ui import Ui_MainWindow
+
+import settings
 
 class Vote(QMainWindow):
     def __init__(self, parent=0):
@@ -28,9 +31,10 @@ class Vote(QMainWindow):
         
         self.pname = ""
         self.version = ""
-        self.id = ""
+        self.id = "46957f1e934411dfbd57954ef8a05a175a17" # pyqt's id until the rest parser is in place
+        self.settings = settings.Settings()
         self.failUnlocked = False
-        self.passUnlocked = True
+        self.passUnlocked = False
         
         self.connect(self.ui.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.ui.cBox_brk, SIGNAL("clicked(bool)"), self.unlockCheck)
@@ -77,9 +81,29 @@ class Vote(QMainWindow):
       
     def thumb(self, b):
         if b:
-            QMessageBox.information(self, "Pass :)","Package thumbed up. Or at least it would be if this method was implemented :) I take patches.")
+            message = 1
         else:
-            QMessageBox.information(self, "Fail :(","Package thumbed down. Or at least it would be if this method was implemented :) I take patches.")
+            message = 0
+        votedata = { "content" : self.id, "message" : message, "type" : 1 }
+        print votedata
+        passw_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+        passw_mgr.add_password( None,
+                          'https://maemo.org/packages/api/v1/favs/add/',
+                          str(self.settings.data.value("username").toString()).lower(),
+                          str(self.settings.data.value("password").toString()))
+        auth_handler = urllib2.HTTPBasicAuthHandler(passw_mgr)
+        self.opener = urllib2.build_opener(auth_handler)
+
+        try:
+            r = self.opener.open("https://maemo.org/packages/api/v1/favs/add/", urllib.urlencode(votedata))
+            # voting is slow, maybe we need a progress bar here, too...
+            ret = r.read()
+            if b:
+                QMessageBox.information(self, "Pass :)","Package thumbed up. It might take a few minutes until your vote appears in the listing.")
+            else:
+                QMessageBox.information(self, "Fail :(","Package thumbed down. It might take a few minutes until your vote appears in the listing.")
+        except Exception, e:
+            QMessageBox.warning(self, "Vote failed", str(e))
     
     
         
