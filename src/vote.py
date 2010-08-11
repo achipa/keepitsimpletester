@@ -31,7 +31,7 @@ class Vote(QMainWindow):
         
         self.pname = ""
         self.version = ""
-        self.id = "46957f1e934411dfbd57954ef8a05a175a17" # pyqt's id until the rest parser is in place
+        self.id = "" # "46957f1e934411dfbd57954ef8a05a175a17" # pyqt's guinea pig id until the rest parser is in place
         self.settings = settings.Settings()
         self.failUnlocked = False
         self.passUnlocked = False
@@ -102,6 +102,7 @@ class Vote(QMainWindow):
                 QMessageBox.information(self, "Pass :)","Package thumbed up. It might take a few minutes until your vote appears in the listing.")
             else:
                 QMessageBox.information(self, "Fail :(","Package thumbed down. It might take a few minutes until your vote appears in the listing.")
+            self.close()
         except Exception, e:
             QMessageBox.warning(self, "Vote failed", str(e))
     

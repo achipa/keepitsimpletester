@@ -78,6 +78,7 @@ class AppItem(QWidget):
             tmpid = "" 
             tmpname = ""
             for child in es.childNodes:
+                print child
                 try:
                     if child.tagName == "id":
                         tmpid = child.childNodes[0].data
@@ -85,7 +86,7 @@ class AppItem(QWidget):
                         tmpname = child.childNodes[0].data
                 except: pass
 
-            if tmpid and tmpname == self.name:
+            if tmpid and tmpname == self.pname:
                 self.id = tmpid
                 
         return self.id
