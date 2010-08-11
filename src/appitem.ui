@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>258</width>
+    <width>265</width>
     <height>57</height>
    </rect>
   </property>
@@ -69,10 +69,16 @@
      <property name="text">
       <string>Version &amp; Vote</string>
      </property>
+     <property name="icon">
+      <iconset resource="kisstester.qrc">
+       <normaloff>:/icons/padlock.png</normaloff>:/icons/padlock.png</iconset>
+     </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="kisstester.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -22,36 +22,6 @@
      <number>0</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="recentButton">
-        <property name="text">
-         <string>Already installed</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="queueButton">
-        <property name="text">
-         <string>Complete QA Queue</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <widget class="QScrollArea" name="recentScroll">
       <property name="widgetResizable">
        <bool>true</bool>
@@ -62,7 +32,7 @@
          <x>0</x>
          <y>0</y>
          <width>866</width>
-         <height>316</height>
+         <height>329</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="recentLayout">
@@ -97,7 +67,7 @@
          <x>0</x>
          <y>0</y>
          <width>866</width>
-         <height>316</height>
+         <height>329</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="queueLayout">
@@ -129,7 +99,7 @@
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFremantle">
@@ -142,12 +112,13 @@
     <addaction name="actionTesterList"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="actionFilter_packages"/>
    </widget>
    <addaction name="menuFremantle"/>
   </widget>
   <action name="actionSettings">
    <property name="text">
-    <string>Settings</string>
+    <string>Login settings</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -173,6 +144,11 @@
   <action name="actionTesterList">
    <property name="text">
     <string>Join the testing squad</string>
+   </property>
+  </action>
+  <action name="actionFilter_packages">
+   <property name="text">
+    <string>Filter packages</string>
    </property>
   </action>
  </widget>

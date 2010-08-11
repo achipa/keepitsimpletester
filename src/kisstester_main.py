@@ -9,6 +9,9 @@ import parser
 import logging
 import webbrowser
 
+
+# This is ugly and not how you should be using PyQt in general , but don't let that scare you. I do it like this for a reason
+
 try:
     from PyQt4.QtGui import *
     from PyQt4.QtCore import *
@@ -28,6 +31,8 @@ except Exception, e:
     subprocess.call(["pyrcc4", "kisstester.qrc", "-o", "kisstester_rc.py"])
 from main_ui import Ui_MainWindow
     
+# end ugly
+
 import settings
 import vote 
 import appitem
@@ -73,14 +78,9 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.actionTesterList, SIGNAL("triggered()"),
                      lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
                                              
-        self.connect(self.ui.recentButton, SIGNAL("toggled(bool)"),
-                     self.showRecent)
-        
-        self.connect(self.ui.queueButton, SIGNAL("toggled(bool)"),
-                     self.showQueue)
-        
         self.loginAvailable.connect(self.loadPackages)
                          
+        self.showRecent(True)
     #            http://maemo.org/packages/api/v1/content/data/?parent=fremantle_extras-testing_free_armel&ordermode=new&search=hermes
     #    mainw.connect(umw.actionAutorotate, SIGNAL("triggered(bool)"), lambda x: settings.setValue("autorotate", 0))
     
@@ -175,6 +175,9 @@ class MainWindow(QMainWindow):
 #       except:
                     
     def sortArea(self):
+        try: 
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+        except: pass
         tmplist = []
         while self.ui.queueLayout.count() > 1:
             tmplist.append(self.ui.queueLayout.takeAt(0).widget())
@@ -188,6 +191,9 @@ class MainWindow(QMainWindow):
         s = sorted(tmplist, key=lambda x: x.waiting) # not reverse as the already installed section is LIFO
         for elem in s:
             self.ui.recentLayout.insertWidget(0, elem)
+        try: 
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
+        except: pass
         
     def vote(self):
         votedialog = vote.Vote(self)
@@ -195,7 +201,13 @@ class MainWindow(QMainWindow):
         votedialog.setWindowTitle(p.name + " " + p.version)
         votedialog.pname = p.pname
         votedialog.version = p.version
+        try: 
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+        except: pass
         votedialog.id = p.getId()
+        try:
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
+        except: pass
         votedialog.show()
     
     @pyqtSlot(bool)
@@ -206,9 +218,18 @@ class MainWindow(QMainWindow):
         if not self.loggedin:
             self.login()
         
-    @pyqtSlot(bool)
-    def showQueue(self, b):
-        self.showRecent(not b)
+    @pyqtSlot()
+    def pickFilter(self):
+        item = QStringList()
+        item.append("Recently installed")
+        item.append("QA queue")
+        ok = True
+        ret = QInputDialog.getItem(self, "Shown packages", "", item, 0, False, ok)
+        if ok:
+            if item.indexOf(ret) == 0:
+                self.showRecent(True)
+            else:
+                self.showRecent(False)
         
 def start():
     mainw = MainWindow()

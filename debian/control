@@ -9,7 +9,15 @@ XSBC-Original-Maintainer: Attila Csipa <maemo@csipa.in.rs>
 Package: kisstester
 Architecture: any
 Depends: python2.5-qt4-gui (>> 4.7.3-maemo0), ${shlibs:Depends}, ${misc:Depends}
-Description: An assistant for feedback on applications iin extras-testing
+Description: An assistant for feedback on applications in extras-testing
+  KISStester's aim is to simplify QA feedback for applications
+  in the extras-testing repository of maemo.org.
+  .
+  Border colour indicates your vote (green for pass, red for
+  fail), text color indicates unlock status (green for unlocked,
+  red for negative karma).
+  .
+  Happy testing and hope to see you in the testing squad !
 XSBC-Bugtracker: mailto:kisstester@csipa.in.rs
 XB-Maemo-Display-Name: KISStester
 XB-Maemo-Icon-26:

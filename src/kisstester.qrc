@@ -1,5 +1,7 @@
 <RCC>
-  <qresource prefix="icons">
+  <qresource prefix="icons" >
+    <file>clock.png</file>
+    <file>padlock.png</file>
     <file>buried.png</file>
     <file>favourite.png</file>
   </qresource>

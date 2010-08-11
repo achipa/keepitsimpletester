@@ -42,7 +42,12 @@ class AppItem(QWidget):
 
     @pyqtSlot()
     def configure(self):
-        self.ui.pButton_vote.setText("%s, Karma %s%s, %s" % (self.version, self.karma, self.status, self.waiting))
+        self.ui.pButton_vote.setText("%s, Karma %s, %s" % (self.version, self.karma, self.waiting))
+        if self.status: # unlocked
+            self.ui.pButton_vote.setIcon(QIcon())
+        elif self.karma >= 10: # this is not correct, but hey... it's easy to code
+            self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/clock.png")))
+            
         self.ui.pname.setText(self.name)
         myvote = ""
         publicvote = ""
@@ -52,10 +57,6 @@ class AppItem(QWidget):
                 myvote = " border-style: outset; border-color: green; border-width: 2px;"
             else:
                 myvote = " border-style: outset; border-color: red; border-width: 2px;"
-        if self.status:
-            publicvote = "color : green;"
-        elif self.karma < 0:
-            publicvote = "color : red;"
             
         self.ui.pButton_vote.setStyleSheet("QPushButton{ %s %s}" % (myvote, publicvote))
 
