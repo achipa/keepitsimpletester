@@ -73,14 +73,17 @@ class AppItem(QWidget):
             return id
         
         xmlstr = urllib2.urlopen("http://maemo.org/packages/api/v1/content/data/?parent=fremantle_extras-testing_free_armel&search=%s" % self.pname).read()
-        domm = xml.dom.minidom.parseString(xmlstr)
+        domm = parseString(xmlstr)
         for es in domm.getElementsByTagName("content"):
-            tmpid = ""
+            tmpid = "" 
+            tmpname = ""
             for child in es.childNodes:
-                if child.tagName == "id":
-                    tmpid = child.childNodes[0].data
-                if child.tagName == "name":
-                    tmpname = child.childNodes[0].data
+                try:
+                    if child.tagName == "id":
+                        tmpid = child.childNodes[0].data
+                    if child.tagName == "name":
+                        tmpname = child.childNodes[0].data
+                except: pass
 
             if tmpid and tmpname == self.name:
                 self.id = tmpid

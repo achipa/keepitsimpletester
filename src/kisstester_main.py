@@ -188,6 +188,7 @@ class MainWindow(QMainWindow):
         votedialog.setWindowTitle(p.name + " " + p.version)
         votedialog.pname = p.pname
         votedialog.version = p.version
+        votedialog.id = p.getId()
         votedialog.show()
     
     @pyqtSlot(bool)
