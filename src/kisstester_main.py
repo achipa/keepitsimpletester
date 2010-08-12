@@ -155,8 +155,6 @@ class MainWindow(QMainWindow):
                 if len(pkgdata) < 2:
                     continue
                 for (pname, d) in p.packages.iteritems():         
-                    print d["pname"]
-                    print d["version"]
                     if d["pname"] == pkgdata[0] and d["version"] == pkgdata[1]:
                         item = appitem.AppItem(self, d)
                         item.ui.pButton_install.setVisible(False) # no install button if already installed
@@ -185,7 +183,7 @@ class MainWindow(QMainWindow):
             QApplication.processEvents()
         except: pass
         tmplist = []
-        while self.ui.queueLayout.count() > 1:
+        while self.ui.queueLayout.count() > 1: # move appitems from the layout to a list so we could sort them
             tmplist.append(self.ui.queueLayout.takeAt(0).widget())
         s = sorted(tmplist, key=lambda x: x.waiting, reverse=True) # reverse as QA is a LIFO (should be, anyway)
         for elem in s:

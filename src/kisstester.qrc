@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons" >
+    <file>pass.png</file>
     <file>clock.png</file>
     <file>padlock.png</file>
     <file>buried.png</file>
