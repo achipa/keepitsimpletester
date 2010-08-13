@@ -200,20 +200,26 @@ class MainWindow(QMainWindow):
         except: pass
         
     def vote(self):
-        votedialog = vote.Vote(self)
+        if self.votedialog is not None:
+            return
+        
+        self.votedialog = vote.Vote(self)
         p = self.sender().parent()
-        votedialog.setWindowTitle(p.name + " " + p.version)
-        votedialog.pname = p.pname
-        votedialog.version = p.version
+        self.votedialog.setWindowTitle(p.name + " " + p.version)
+        self.votedialog.pname = p.pname
+        self.votedialog.version = p.version
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
             QApplication.processEvents()
         except: pass
-        votedialog.id = p.getId()
+        self.votedialog.id = p.getId()
         try:
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
+            QApplication.processEvents()
         except: pass
-        votedialog.show()
+        self.votedialog.show()
+        
+        self.votedialog.deleteLater()
     
     @pyqtSlot(bool)
     def showRecent(self, b):

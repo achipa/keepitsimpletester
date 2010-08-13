@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>354</width>
+    <width>377</width>
     <height>100</height>
    </rect>
   </property>
@@ -96,7 +96,7 @@
         <string>Version &amp; Vote</string>
        </property>
        <property name="icon">
-        <iconset resource="kisstester.qrc">
+        <iconset>
          <normaloff>:/icons/padlock.png</normaloff>:/icons/padlock.png</iconset>
        </property>
       </widget>
@@ -107,15 +107,12 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="kisstester.qrc">:/icons/clock.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
+        <pixmap resource="kisstester.qrc">:/icons/wait.png</pixmap>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="hasvotesLabel">
        <property name="text">
         <string/>
        </property>
@@ -125,15 +122,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lockedLabel">
+      <widget class="QLabel" name="unlockedLabel">
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="kisstester.qrc">:/icons/padlock.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
+        <pixmap resource="kisstester.qrc">:/icons/Padlock-bronze-open.png</pixmap>
        </property>
       </widget>
      </item>

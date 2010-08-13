@@ -31,6 +31,10 @@ class AppItem(QWidget):
         self.version = data["version"]
         self.status = data["status"]
         self.waiting = data["waiting"]
+        self.age = QDateTime.fromString(self.waiting, "yyy-MM-dd HH:mm UTC").daysTo(QDateTime.currentDateTime())
+        print self.waiting
+        print QDate.fromString(self.waiting)
+        print self.age
         self.voted = data["voted"]
         self.myvote = data["myvote"]
         self.bugtracker = data["bugtracker"]
@@ -48,23 +52,29 @@ class AppItem(QWidget):
 
     @pyqtSlot()
     def configure(self):
-        self.ui.pButton_vote.setText("%s, Karma %s, %s" % (self.version, self.karma, self.waiting))
+        self.ui.pButton_vote.setText("%s, Karma %s, %s days old" % (self.version, self.karma, self.age))
+        self.ui.unlockedLabel.setVisible(False)
+        self.ui.hasvotesLabel.setVisible(False)
+        self.ui.quarantineLabel.setVisible(False)
         if self.status: # unlocked
-            self.ui.pButton_vote.setIcon(QIcon())
-        elif self.karma >= 10: # this is not correct, but hey... it's easy to code
-            self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/clock.png")))
+#            self.ui.pButton_vote.setIcon(QIcon())
+            self.ui.unlockedLabel.setVisible(True)
+            self.ui.pButton_vote.setFlat(True)
+        else:
+            if self.karma >= 10:
+#            self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/clock.png")))
+                self.ui.hasvotesLabel.setVisible(True)
+            if self.age < 10:
+                self.ui.quarantineLabel.setVisible(True)
+                
+        if self.voted:
+            self.ui.votedUpLabel.setVisible(self.myvote)
+            self.ui.votedDownLabel.setVisible(not self.myvote)
+        else:
+            self.ui.votedUpLabel.setVisible(False)
+            self.ui.votedDownLabel.setVisible(False)
             
         self.ui.pname.setText(self.name)
-        myvote = ""
-        publicvote = ""
-        if self.voted:
-            # pButton_vote.setEnabled(False) # can't disable as then you couldn't change your vote
-            if self.myvote:
-                myvote = " border-style: outset; border-color: green; border-width: 2px;"
-            else:
-                myvote = " border-style: outset; border-color: red; border-width: 2px;"
-            
-        self.ui.pButton_vote.setStyleSheet("QPushButton{ %s %s}" % (myvote, publicvote))
 
     @pyqtSlot()
     def debInstall(self):
