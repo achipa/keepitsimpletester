@@ -18,7 +18,7 @@ Description: An assistant for feedback on applications in extras-testing
   red for negative karma).
   .
   Happy testing and hope to see you in the testing squad !
-XSBC-Bugtracker: mailto:kisstester@csipa.in.rs
+XSBC-Bugtracker: https://bugs.maemo.org/enter_bug.cgi?product=KISStester
 XB-Maemo-Display-Name: KISStester
 XB-Maemo-Icon-26:
   iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0
