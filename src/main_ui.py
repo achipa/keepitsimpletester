@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Aug 14 02:07:13 2010
+# Created: Sat Aug 14 22:44:16 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -66,13 +66,17 @@ class Ui_MainWindow(object):
         self.actionTesterList.setObjectName("actionTesterList")
         self.actionFilter_packages = QtGui.QAction(MainWindow)
         self.actionFilter_packages.setObjectName("actionFilter_packages")
+        self.actionShow_only_unchecked = QtGui.QAction(MainWindow)
+        self.actionShow_only_unchecked.setCheckable(True)
+        self.actionShow_only_unchecked.setObjectName("actionShow_only_unchecked")
         self.menuFremantle.addAction(self.actionAbout)
         self.menuFremantle.addAction(self.actionAbout_Qt)
-        self.menuFremantle.addAction(self.actionSettings)
-        self.menuFremantle.addAction(self.actionReload_repository_data)
         self.menuFremantle.addAction(self.actionCommentList)
         self.menuFremantle.addAction(self.actionTesterList)
+        self.menuFremantle.addAction(self.actionSettings)
+        self.menuFremantle.addAction(self.actionReload_repository_data)
         self.menuFremantle.addAction(self.actionFilter_packages)
+        self.menuFremantle.addAction(self.actionShow_only_unchecked)
         self.menubar.addAction(self.menuFremantle.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -88,4 +92,5 @@ class Ui_MainWindow(object):
         self.actionCommentList.setText(QtGui.QApplication.translate("MainWindow", "Package comment archive", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTesterList.setText(QtGui.QApplication.translate("MainWindow", "Join the testing squad", None, QtGui.QApplication.UnicodeUTF8))
         self.actionFilter_packages.setText(QtGui.QApplication.translate("MainWindow", "Package filter", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionShow_only_unchecked.setText(QtGui.QApplication.translate("MainWindow", "Show only unchecked", None, QtGui.QApplication.UnicodeUTF8))
 

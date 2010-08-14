@@ -81,6 +81,9 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.actionFilter_packages, SIGNAL("triggered()"),
                     self.pickFilter)
         
+        self.connect(self.ui.actionShow_only_unchecked, SIGNAL("triggered(bool)"),
+                     self.hideTested)
+        
         self.loginAvailable.connect(self.loadPackages)
                          
         self.showRecent(True)
@@ -222,6 +225,25 @@ class MainWindow(QMainWindow):
 #        self.votedialog.deleteLater()
 #        self.votedialog = None
     
+    @pyqtSlot(bool)
+    def hideTested(self, b):
+        for item in self.ui.queueContents.children():
+            try:
+                if b and item.voted:
+                    item.setVisible(False)
+                else:
+                    item.setVisible(True)
+            except Exception, e:
+                print e
+        for item in self.ui.recentContents.children():
+            try:
+                if b and item.voted:
+                    item.setVisible(False)
+                else:
+                    item.setVisible(True)
+            except Exception, e:
+                print e
+        
     @pyqtSlot(bool)
     def showRecent(self, b):
         self.ui.recentScroll.setVisible(b)

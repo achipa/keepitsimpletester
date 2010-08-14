@@ -68,12 +68,11 @@ class AppItem(QWidget):
                 self.ui.quarantineLabel.setVisible(True)
                 
         if self.voted:
-            self.ui.votedUpLabel.setVisible(self.myvote)
-            self.ui.votedDownLabel.setVisible(not self.myvote)
             self.ui.pButton_vote.setFlat(True)
-        else:
-            self.ui.votedUpLabel.setVisible(False)
-            self.ui.votedDownLabel.setVisible(False)
+            if self.myvote:
+                self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/favourite.png")))
+            else:
+                self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/buried.png")))
             
         self.ui.pname.setText(self.name)
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>372</width>
-    <height>107</height>
+    <height>122</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,26 +71,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="votedUpLabel">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="kisstester.qrc">:/icons/favourite.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="votedDownLabel">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="kisstester.qrc">:/icons/buried.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pButton_vote">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -100,10 +80,6 @@
        </property>
        <property name="text">
         <string>Version &amp; Vote</string>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>:/icons/padlock.png</normaloff>:/icons/padlock.png</iconset>
        </property>
       </widget>
      </item>
@@ -138,6 +114,16 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string>&lt;HR&gt;</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

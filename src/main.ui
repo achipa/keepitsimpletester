@@ -108,11 +108,12 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
-    <addaction name="actionSettings"/>
-    <addaction name="actionReload_repository_data"/>
     <addaction name="actionCommentList"/>
     <addaction name="actionTesterList"/>
+    <addaction name="actionSettings"/>
+    <addaction name="actionReload_repository_data"/>
     <addaction name="actionFilter_packages"/>
+    <addaction name="actionShow_only_unchecked"/>
    </widget>
    <addaction name="menuFremantle"/>
   </widget>
@@ -149,6 +150,14 @@
   <action name="actionFilter_packages">
    <property name="text">
     <string>Package filter</string>
+   </property>
+  </action>
+  <action name="actionShow_only_unchecked">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show only unchecked</string>
    </property>
   </action>
  </widget>

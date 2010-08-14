@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appitem.ui'
 #
-# Created: Sat Aug 14 02:32:35 2010
+# Created: Sat Aug 14 23:21:41 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(531, 345)
+        Form.resize(372, 107)
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -36,25 +36,12 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.votedUpLabel = QtGui.QLabel(Form)
-        self.votedUpLabel.setText("")
-        self.votedUpLabel.setPixmap(QtGui.QPixmap(":/icons/favourite.png"))
-        self.votedUpLabel.setObjectName("votedUpLabel")
-        self.horizontalLayout.addWidget(self.votedUpLabel)
-        self.votedDownLabel = QtGui.QLabel(Form)
-        self.votedDownLabel.setText("")
-        self.votedDownLabel.setPixmap(QtGui.QPixmap(":/icons/buried.png"))
-        self.votedDownLabel.setObjectName("votedDownLabel")
-        self.horizontalLayout.addWidget(self.votedDownLabel)
         self.pButton_vote = QtGui.QPushButton(Form)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pButton_vote.sizePolicy().hasHeightForWidth())
         self.pButton_vote.setSizePolicy(sizePolicy)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/icons/padlock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pButton_vote.setIcon(icon)
         self.pButton_vote.setObjectName("pButton_vote")
         self.horizontalLayout.addWidget(self.pButton_vote)
         self.quarantineLabel = QtGui.QLabel(Form)
@@ -73,11 +60,9 @@ class Ui_Form(object):
         self.unlockedLabel.setObjectName("unlockedLabel")
         self.horizontalLayout.addWidget(self.unlockedLabel)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.line = QtGui.QFrame(Form)
-        self.line.setFrameShape(QtGui.QFrame.HLine)
-        self.line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.verticalLayout.addWidget(self.line)
+        self.label = QtGui.QLabel(Form)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -89,5 +74,6 @@ class Ui_Form(object):
         self.pButton_pdetails.setText(QtGui.QApplication.translate("Form", "Details", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_install.setText(QtGui.QApplication.translate("Form", "Install", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_vote.setText(QtGui.QApplication.translate("Form", "Version & Vote", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("Form", "<HR>", None, QtGui.QApplication.UnicodeUTF8))
 
 import kisstester_rc
