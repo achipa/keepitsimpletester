@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'appitem.ui'
 #
-# Created: Fri Aug 13 17:32:15 2010
-#      by: PyQt4 UI code generator 4.7.3
+# Created: Sat Aug 14 02:32:35 2010
+#      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(377, 100)
+        Form.resize(531, 345)
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -47,6 +47,11 @@ class Ui_Form(object):
         self.votedDownLabel.setObjectName("votedDownLabel")
         self.horizontalLayout.addWidget(self.votedDownLabel)
         self.pButton_vote = QtGui.QPushButton(Form)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pButton_vote.sizePolicy().hasHeightForWidth())
+        self.pButton_vote.setSizePolicy(sizePolicy)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/padlock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pButton_vote.setIcon(icon)
@@ -55,7 +60,6 @@ class Ui_Form(object):
         self.quarantineLabel = QtGui.QLabel(Form)
         self.quarantineLabel.setText("")
         self.quarantineLabel.setPixmap(QtGui.QPixmap(":/icons/wait.png"))
-        self.quarantineLabel.setScaledContents(True)
         self.quarantineLabel.setObjectName("quarantineLabel")
         self.horizontalLayout.addWidget(self.quarantineLabel)
         self.hasvotesLabel = QtGui.QLabel(Form)
@@ -65,11 +69,15 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.hasvotesLabel)
         self.unlockedLabel = QtGui.QLabel(Form)
         self.unlockedLabel.setText("")
-        self.unlockedLabel.setPixmap(QtGui.QPixmap(":/icons/Padlock-bronze-open.png"))
-        self.unlockedLabel.setScaledContents(True)
+        self.unlockedLabel.setPixmap(QtGui.QPixmap(":/icons/padlock_open.png"))
         self.unlockedLabel.setObjectName("unlockedLabel")
         self.horizontalLayout.addWidget(self.unlockedLabel)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.line = QtGui.QFrame(Form)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.verticalLayout.addWidget(self.line)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

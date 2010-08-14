@@ -92,7 +92,7 @@ class MyHTMLParser(HTMLParser):
         
         try:
             if self.parentlist[-1] == "title" and self.parentlist[-2] == "repository_list_item":
-                self.package["name"] = data
+                self.package["name"] = data.decode("utf-8")
         except: pass
         
     def handle_endtag(self, tag):

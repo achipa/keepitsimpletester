@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>377</width>
-    <height>100</height>
+    <width>372</width>
+    <height>107</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,6 +92,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pButton_vote">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Version &amp; Vote</string>
        </property>
@@ -127,7 +133,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="kisstester.qrc">:/icons/Padlock-bronze-open.png</pixmap>
+        <pixmap resource="kisstester.qrc">:/icons/padlock_open.png</pixmap>
        </property>
       </widget>
      </item>

@@ -2,8 +2,8 @@
   <qresource prefix="icons" >
     <file>pass.png</file>
     <file>buried.png</file>
-    <file>Padlock-bronze-open.png</file>
     <file>wait.png</file>
     <file>favourite.png</file>
+    <file>padlock_open.png</file>
   </qresource>
 </RCC>

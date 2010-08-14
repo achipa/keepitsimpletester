@@ -49,6 +49,7 @@ class MainWindow(QMainWindow):
         except: pass
  
         self.settings = settings.Settings()
+        self.votedialog = vote.Vote(self)
         self.loggedin = False
         self.cj = cookielib.CookieJar()
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cj))
@@ -200,10 +201,9 @@ class MainWindow(QMainWindow):
         except: pass
         
     def vote(self):
-        if self.votedialog is not None:
+        if self.votedialog.isVisible():
             return
         
-        self.votedialog = vote.Vote(self)
         p = self.sender().parent()
         self.votedialog.setWindowTitle(p.name + " " + p.version)
         self.votedialog.pname = p.pname
@@ -219,7 +219,8 @@ class MainWindow(QMainWindow):
         except: pass
         self.votedialog.show()
         
-        self.votedialog.deleteLater()
+#        self.votedialog.deleteLater()
+#        self.votedialog = None
     
     @pyqtSlot(bool)
     def showRecent(self, b):

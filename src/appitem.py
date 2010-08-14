@@ -31,9 +31,9 @@ class AppItem(QWidget):
         self.version = data["version"]
         self.status = data["status"]
         self.waiting = data["waiting"]
-        self.age = QDateTime.fromString(self.waiting, "yyy-MM-dd HH:mm UTC").daysTo(QDateTime.currentDateTime())
+        self.age = QDateTime.fromString(self.waiting, "yyyy-MM-dd HH:mm UTC").daysTo(QDateTime.currentDateTime())
         print self.waiting
-        print QDate.fromString(self.waiting)
+        print QDate.fromString(self.waiting, "yyyy-MM-dd HH:mm UTC")
         print self.age
         self.voted = data["voted"]
         self.myvote = data["myvote"]
@@ -70,6 +70,7 @@ class AppItem(QWidget):
         if self.voted:
             self.ui.votedUpLabel.setVisible(self.myvote)
             self.ui.votedDownLabel.setVisible(not self.myvote)
+            self.ui.pButton_vote.setFlat(True)
         else:
             self.ui.votedUpLabel.setVisible(False)
             self.ui.votedDownLabel.setVisible(False)
