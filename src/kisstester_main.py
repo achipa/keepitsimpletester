@@ -161,7 +161,6 @@ class MainWindow(QMainWindow):
                 for (pname, d) in p.packages.iteritems():         
                     if d["pname"] == pkgdata[0] and d["version"] == pkgdata[1]:
                         item = appitem.AppItem(self, d)
-                        item.ui.pButton_install.setVisible(False) # no install button if already installed
                         self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
                         self.ui.recentLayout.insertWidget(0,item)                                  
                     

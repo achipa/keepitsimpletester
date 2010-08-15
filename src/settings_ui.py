@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'settings.ui'
 #
-# Created: Sat Aug 14 22:44:19 2010
+# Created: Sun Aug 15 16:44:07 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(518, 108)
+        Dialog.resize(569, 127)
         self.formLayout_2 = QtGui.QFormLayout(Dialog)
         self.formLayout_2.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout_2.setObjectName("formLayout_2")
@@ -38,9 +38,7 @@ class Ui_Dialog(object):
         self.buttonBox.setObjectName("buttonBox")
         self.formLayout_2.setWidget(1, QtGui.QFormLayout.FieldRole, self.buttonBox)
         self.registerLabel = QtGui.QLabel(Dialog)
-        font = QtGui.QFont()
-        font.setPointSize(21)
-        self.registerLabel.setFont(font)
+        self.registerLabel.setOpenExternalLinks(True)
         self.registerLabel.setObjectName("registerLabel")
         self.formLayout_2.setWidget(2, QtGui.QFormLayout.LabelRole, self.registerLabel)
 
@@ -57,5 +55,5 @@ class Ui_Dialog(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'DejaVu Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://garage.maemo.org/account/register.php\"><span style=\" text-decoration: underline; color:#0057ae;\">Register for maemo.org account</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://garage.maemo.org/account/register.php\"><span style=\" font-size:22pt; text-decoration: underline; color:#0057ae;\">Register for maemo.org account</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 

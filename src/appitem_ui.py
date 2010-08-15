@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appitem.ui'
 #
-# Created: Sat Aug 14 23:21:41 2010
+# Created: Sun Aug 15 21:00:31 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,29 +12,8 @@ from PyQt4 import QtCore, QtGui
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(372, 107)
-        self.verticalLayout = QtGui.QVBoxLayout(Form)
-        self.verticalLayout.setMargin(0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout_2 = QtGui.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.pname = QtGui.QLabel(Form)
-        self.pname.setMaximumSize(QtCore.QSize(500, 16777215))
-        self.pname.setObjectName("pname")
-        self.horizontalLayout_2.addWidget(self.pname)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
-        self.pButton_bug = QtGui.QPushButton(Form)
-        self.pButton_bug.setObjectName("pButton_bug")
-        self.horizontalLayout_2.addWidget(self.pButton_bug)
-        self.pButton_pdetails = QtGui.QPushButton(Form)
-        self.pButton_pdetails.setObjectName("pButton_pdetails")
-        self.horizontalLayout_2.addWidget(self.pButton_pdetails)
-        self.pButton_install = QtGui.QPushButton(Form)
-        self.pButton_install.setObjectName("pButton_install")
-        self.horizontalLayout_2.addWidget(self.pButton_install)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-        self.horizontalLayout = QtGui.QHBoxLayout()
+        Form.resize(512, 82)
+        self.horizontalLayout = QtGui.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.pButton_vote = QtGui.QPushButton(Form)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.Fixed)
@@ -44,6 +23,9 @@ class Ui_Form(object):
         self.pButton_vote.setSizePolicy(sizePolicy)
         self.pButton_vote.setObjectName("pButton_vote")
         self.horizontalLayout.addWidget(self.pButton_vote)
+        self.scoreAgeLabel = QtGui.QLabel(Form)
+        self.scoreAgeLabel.setObjectName("scoreAgeLabel")
+        self.horizontalLayout.addWidget(self.scoreAgeLabel)
         self.quarantineLabel = QtGui.QLabel(Form)
         self.quarantineLabel.setText("")
         self.quarantineLabel.setPixmap(QtGui.QPixmap(":/icons/wait.png"))
@@ -59,21 +41,21 @@ class Ui_Form(object):
         self.unlockedLabel.setPixmap(QtGui.QPixmap(":/icons/padlock_open.png"))
         self.unlockedLabel.setObjectName("unlockedLabel")
         self.horizontalLayout.addWidget(self.unlockedLabel)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.label = QtGui.QLabel(Form)
-        self.label.setObjectName("label")
-        self.verticalLayout.addWidget(self.label)
+        self.pButton_bug = QtGui.QPushButton(Form)
+        self.pButton_bug.setObjectName("pButton_bug")
+        self.horizontalLayout.addWidget(self.pButton_bug)
+        self.pButton_pdetails = QtGui.QPushButton(Form)
+        self.pButton_pdetails.setObjectName("pButton_pdetails")
+        self.horizontalLayout.addWidget(self.pButton_pdetails)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.pname.setText(QtGui.QApplication.translate("Form", "Packagename", None, QtGui.QApplication.UnicodeUTF8))
+        self.pButton_vote.setText(QtGui.QApplication.translate("Form", "Version & Vote", None, QtGui.QApplication.UnicodeUTF8))
+        self.scoreAgeLabel.setText(QtGui.QApplication.translate("Form", "0/0", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_bug.setText(QtGui.QApplication.translate("Form", "Report bug", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_pdetails.setText(QtGui.QApplication.translate("Form", "Details", None, QtGui.QApplication.UnicodeUTF8))
-        self.pButton_install.setText(QtGui.QApplication.translate("Form", "Install", None, QtGui.QApplication.UnicodeUTF8))
-        self.pButton_vote.setText(QtGui.QApplication.translate("Form", "Version & Vote", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("Form", "<HR>", None, QtGui.QApplication.UnicodeUTF8))
 
 import kisstester_rc

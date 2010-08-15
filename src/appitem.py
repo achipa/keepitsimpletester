@@ -32,9 +32,6 @@ class AppItem(QWidget):
         self.status = data["status"]
         self.waiting = data["waiting"]
         self.age = QDateTime.fromString(self.waiting, "yyyy-MM-dd HH:mm UTC").daysTo(QDateTime.currentDateTime())
-        print self.waiting
-        print QDate.fromString(self.waiting, "yyyy-MM-dd HH:mm UTC")
-        print self.age
         self.voted = data["voted"]
         self.myvote = data["myvote"]
         self.bugtracker = data["bugtracker"]
@@ -45,20 +42,21 @@ class AppItem(QWidget):
             
         self.configure()
         
-        self.connect(self.ui.pButton_install, SIGNAL("clicked()"), self.debInstall)
         self.connect(self.ui.pButton_pdetails, SIGNAL("clicked()"), self.debDetails)
         self.connect(self.ui.pButton_bug, SIGNAL("clicked()"), self.bugReport)
         
-
     @pyqtSlot()
     def configure(self):
-        self.ui.pButton_vote.setText("%s, Karma %s, %s days old" % (self.version, self.karma, self.age))
+#        self.ui.pButton_vote.setText("%s, Karma %s, %s days old" % (self.version, self.karma, self.age))
+        
+        self.ui.pButton_vote.setText(self.name[0:40])
         self.ui.unlockedLabel.setVisible(False)
         self.ui.hasvotesLabel.setVisible(False)
         self.ui.quarantineLabel.setVisible(False)
         if self.status: # unlocked
 #            self.ui.pButton_vote.setIcon(QIcon())
             self.ui.unlockedLabel.setVisible(True)
+            self.ui.scoreAgeLabel.setVisible(False)
             self.ui.pButton_vote.setFlat(True)
         else:
             if self.karma >= 10:
@@ -74,12 +72,8 @@ class AppItem(QWidget):
             else:
                 self.ui.pButton_vote.setIcon(QIcon(QPixmap(":/icons/buried.png")))
             
-        self.ui.pname.setText(self.name)
+        self.ui.scoreAgeLabel.setText("%s/%s" % (self.karma, self.age))
 
-    @pyqtSlot()
-    def debInstall(self):
-        QMessageBox.information(self, "%s %s" % (self.name, self.version), "Insert install functionality here. I take patches.")
-        
     @pyqtSlot()
     def debDetails(self):
         QMessageBox.information(self, "%s %s" % (self.name, self.version), "Insert details functionality here (REST, or, probably better, from apt-cache show). I take patches.")
