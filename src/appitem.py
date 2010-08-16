@@ -49,7 +49,11 @@ class AppItem(QWidget):
     def configure(self):
 #        self.ui.pButton_vote.setText("%s, Karma %s, %s days old" % (self.version, self.karma, self.age))
         
-        self.ui.pButton_vote.setText(self.name[0:40])
+        if self.name.length() > 40:
+            self.ui.pButton_vote.setText(self.name[0:40]+ "...")
+        else:
+            self.ui.pButton_vote.setText(self.name)
+            
         self.ui.unlockedLabel.setVisible(False)
         self.ui.hasvotesLabel.setVisible(False)
         self.ui.quarantineLabel.setVisible(False)
