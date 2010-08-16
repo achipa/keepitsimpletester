@@ -35,6 +35,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="updateLabel">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="kisstester.qrc">:/icons/softwareUpdate.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="quarantineLabel">
      <property name="text">
       <string/>

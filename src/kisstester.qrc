@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons" >
+    <file>softwareUpdate.png</file>
     <file>pass.png</file>
     <file>buried.png</file>
     <file>wait.png</file>

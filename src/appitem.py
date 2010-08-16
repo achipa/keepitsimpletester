@@ -54,6 +54,7 @@ class AppItem(QWidget):
         else:
             self.ui.pButton_vote.setText(self.name)
             
+        self.ui.updateLabel.setVisible(False)
         self.ui.unlockedLabel.setVisible(False)
         self.ui.hasvotesLabel.setVisible(False)
         self.ui.quarantineLabel.setVisible(False)
