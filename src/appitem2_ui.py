@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appitem2.ui'
 #
-# Created: Wed Aug 18 02:01:38 2010
+# Created: Wed Aug 18 17:30:03 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -115,12 +115,13 @@ class Ui_Form(object):
 "}", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_vote.setStyleSheet(QtGui.QApplication.translate("Form", "QPushButton#pButton_vote {\n"
 "text-align: left;\n"
+"color: white;\n"
 "font-family: \"Nokia Sans Cn\";\n"
 "}", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_vote.setText(QtGui.QApplication.translate("Form", "Appname", None, QtGui.QApplication.UnicodeUTF8))
         self.scoreAgeLabel.setText(QtGui.QApplication.translate("Form", "k:8 d:8", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_details.setStyleSheet(QtGui.QApplication.translate("Form", "QPushButton {\n"
-"font: \"Nokia Sans Cn\"\n"
+"font-family: \"Nokia Sans Cn\";\n"
 "}", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_details.setText(QtGui.QApplication.translate("Form", "Install", None, QtGui.QApplication.UnicodeUTF8))
 

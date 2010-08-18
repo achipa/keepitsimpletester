@@ -53,6 +53,17 @@ class Vote(QMainWindow):
         self.connect(self.ui.passButton, SIGNAL("clicked(bool)"), self.passVote)
         self.connect(self.ui.commentButton, SIGNAL("clicked(bool)"), self.comment)
         
+    def show(self):
+        self.ui.cBox_cpu.setChecked(False)
+        self.ui.cBox_brk.setChecked(False)
+        self.ui.cBox_bug.setChecked(False)
+        self.ui.cBox_dub.setChecked(False)
+        self.ui.cBox_lic.setChecked(False)
+        self.ui.cBox_opt.setChecked(False)
+        self.ui.cBox_pwr.setChecked(False)
+        self.ui.textEdit.setText("")
+        QMainWindow.show(self)
+        
     @pyqtSlot()
     def unlockCheck(self):
         if self.ui.cBox_cpu.isChecked() and self.ui.cBox_brk.isChecked() and self.ui.cBox_bug.isChecked() and self.ui.cBox_dub.isChecked() and self.ui.cBox_lic.isChecked() and self.ui.cBox_opt.isChecked() and self.ui.cBox_pwr.isChecked() :
@@ -69,6 +80,7 @@ class Vote(QMainWindow):
     @pyqtSlot()
     def passVote(self):
         if self.passUnlocked:
+            self.comment()
             self.thumb(True)
         else:
             QMessageBox.information(self, "Pass criteria missing","You need to check (or have a good indication) of all the criteria above (i.e. all the checkboxes need to be checked)")
@@ -84,8 +96,13 @@ class Vote(QMainWindow):
       
     @pyqtSlot()
     def comment(self):
+        try: 
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+            QApplication.processEvents()
+        except: pass
         commentdata = { "content" : self.id, "message" : self.ui.textEdit.toPlainText(), "type" : 1 }
         print commentdata
+        self.ui.textEdit().setText("")
         passw_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
         passw_mgr.add_password( None,
                           'https://maemo.org/packages/api/v1/comments/add/',
@@ -96,6 +113,10 @@ class Vote(QMainWindow):
         
         r = self.opener.open("https://maemo.org/packages/api/v1/comments/add/", urllib.urlencode(commentdata))
         ret = r.read()
+        try: 
+            self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
+            QApplication.processEvents()
+        except: pass
         
     def thumb(self, b):
         if b:
@@ -114,6 +135,10 @@ class Vote(QMainWindow):
 
         try:
             if os.path.exists("/home/user/.kisstester_rw"):
+                try: 
+                    self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
+                    QApplication.processEvents()
+                except: pass
                 r = self.opener.open("https://maemo.org/packages/api/v1/favs/add/", urllib.urlencode(votedata))
                 ret = r.read()
                 # voting is slow, maybe we need a progress bar here, too...
@@ -121,6 +146,10 @@ class Vote(QMainWindow):
                     QMessageBox.information(self, "Pass :)","Package thumbed up. It might take a few minutes until your vote appears in the listing.")
                 else:
                     QMessageBox.information(self, "Fail :(","Package thumbed down. It might take a few minutes until your vote appears in the listing.")
+                try: 
+                    self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
+                    QApplication.processEvents()
+                except: pass
                 self.close()
             else:
                 QMessageBox.warning(self, "WARNING", "KISStester operating in read-only mode. Please check the testing-squad mailing-list before you do something you don't want to :)")

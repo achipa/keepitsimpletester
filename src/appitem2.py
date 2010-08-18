@@ -2,6 +2,7 @@ import os
 import urllib2
 from xml.dom.minidom import parseString
 import webbrowser
+import subprocess
 
 try:
     from PyQt4.QtGui import *
@@ -57,30 +58,30 @@ class AppItem(QWidget):
         else:
             self.ui.pButton_vote.setText(self.name)
 
-        if self.pkgcache.value(self.pname, self.version).toString() != self.version:
+        if self.pkgcache.value(self.pname, "").toString() == "Y":
+            self.ui.upgradeLabel.setPixmap(QPixmap(":/appitem/images/icon1_active.png"))
+        elif self.pkgcache.value(self.pname, "").toString() != self.version:
             # not in cache
             print "caching %s extras status" % self.pname
-            policy = subprocess.Popen(["apt-cache showpkg %s" % str(self.pname)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
+            policy = subprocess.Popen(["/usr/bin/apt-cache showpkg %s" % str(self.pname)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
             isinextras = False
             for line in policy.splitlines():
-                if line.find("repository.maemo.org_extras_dists"):
+                if line.find("repository.maemo.org_extras_dists") > 0:
                     self.pkgcache.setValue(self.pname,"Y")
+                    self.ui.upgradeLabel.setPixmap(QPixmap(":/appitem/images/icon1_active.png"))
                     isinextras = True
                     break
-                
-            if not isinextras:
+            else:
                 self.pkgcache.setValue(self.pname,self.version)
                     
             self.pkgcache.sync()    
         
-        if self.pkgcache.value(self.pname, "-").toString() == "Y":
-            self.ui.upgradeLabel.setPixmap(QPixmap(":/appitem/images/icon1_active.png"))
                 
         if self.status: # unlocked
             flat = True
             self.ui.unlockedLabel.setPixmap(QPixmap(":/appitem/images/icon4_active.png"))
-            
-        if self.karma >= 10:
+            self.ui.voteLabel.setPixmap(QPixmap(":/appitem/images/icon2_active.png"))
+        elif self.karma >= 10:
             flat = True
             self.ui.voteLabel.setPixmap(QPixmap(":/appitem/images/icon2_active.png"))
             

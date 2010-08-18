@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vote.ui'
 #
-# Created: Wed Aug 18 01:02:23 2010
+# Created: Wed Aug 18 17:30:02 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget(self.scrollArea)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 778, 569))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 778, 564))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setMargin(0)
@@ -66,9 +66,6 @@ class Ui_MainWindow(object):
         self.textEdit = QtGui.QTextEdit(self.scrollAreaWidgetContents)
         self.textEdit.setObjectName("textEdit")
         self.verticalLayout_2.addWidget(self.textEdit)
-        self.pushButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.passButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
@@ -91,7 +88,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.scrollArea)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
@@ -111,7 +108,6 @@ class Ui_MainWindow(object):
         self.pButton_page.setText(QtGui.QApplication.translate("MainWindow", "Use classic (web) interface", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_detail.setText(QtGui.QApplication.translate("MainWindow", "QA docs", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Detailed description of issues found (required for failing an application):", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "PushButton", None, QtGui.QApplication.UnicodeUTF8))
         self.passButton.setText(QtGui.QApplication.translate("MainWindow", "PASS", None, QtGui.QApplication.UnicodeUTF8))
         self.commentButton.setText(QtGui.QApplication.translate("MainWindow", "Comment only", None, QtGui.QApplication.UnicodeUTF8))
         self.failButton.setText(QtGui.QApplication.translate("MainWindow", "FAIL", None, QtGui.QApplication.UnicodeUTF8))
