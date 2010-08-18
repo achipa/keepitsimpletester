@@ -32,7 +32,7 @@
          <x>0</x>
          <y>0</y>
          <width>778</width>
-         <height>569</height>
+         <height>564</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -124,13 +124,6 @@
          <widget class="QTextEdit" name="textEdit"/>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="passButton">
@@ -175,7 +168,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

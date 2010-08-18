@@ -22,6 +22,7 @@ from appitem2_ui import Ui_Form
 class AppItem(QWidget):
     def __init__(self, parent=0, data={ 'name' : "", "karma" : 0, "pname" : "", "version" : "", "status" : "", "waiting" : "", "voted" : False, "myvote" : False, "bugtracker" : "" }):
         QWidget.__init__(self)
+        self.pkgcache = QSettings("kisstester", "pkginfo")
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.installed = False
@@ -55,7 +56,26 @@ class AppItem(QWidget):
             self.ui.pButton_vote.setText(self.name[0:40]+ "...")
         else:
             self.ui.pButton_vote.setText(self.name)
-            
+
+        if self.pkgcache.value(self.pname, self.version).toString() != self.version:
+            # not in cache
+            print "caching %s extras status" % self.pname
+            policy = subprocess.Popen(["apt-cache showpkg %s" % str(self.pname)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
+            isinextras = False
+            for line in policy.splitlines():
+                if line.find("repository.maemo.org_extras_dists"):
+                    self.pkgcache.setValue(self.pname,"Y")
+                    isinextras = True
+                    break
+                
+            if not isinextras:
+                self.pkgcache.setValue(self.pname,self.version)
+                    
+            self.pkgcache.sync()    
+        
+        if self.pkgcache.value(self.pname, "-").toString() == "Y":
+            self.ui.upgradeLabel.setPixmap(QPixmap(":/appitem/images/icon1_active.png"))
+                
         if self.status: # unlocked
             flat = True
             self.ui.unlockedLabel.setPixmap(QPixmap(":/appitem/images/icon4_active.png"))
@@ -77,6 +97,7 @@ class AppItem(QWidget):
             
         if flat:
             self.ui.widget.setStyleSheet(self.ui.widget.styleSheet().replace("unpress", "press"))
+            self.ui.pButton_vote.setStyleSheet(self.ui.pButton_vote.styleSheet().replace("white", "gray"))
             
         self.ui.scoreAgeLabel.setText("k:%s d:%s" % (self.karma, self.age))
 

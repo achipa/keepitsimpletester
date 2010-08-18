@@ -85,6 +85,7 @@
         <property name="styleSheet">
          <string>QPushButton#pButton_vote {
 text-align: left;
+color: white;
 font-family: &quot;Nokia Sans Cn&quot;;
 }</string>
         </property>
@@ -186,7 +187,7 @@ font-family: &quot;Nokia Sans Cn&quot;;
         </property>
         <property name="styleSheet">
          <string>QPushButton {
-font: &quot;Nokia Sans Cn&quot;
+font-family: &quot;Nokia Sans Cn&quot;;
 }</string>
         </property>
         <property name="text">

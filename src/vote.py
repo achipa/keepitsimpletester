@@ -51,6 +51,7 @@ class Vote(QMainWindow):
                      
         self.connect(self.ui.failButton, SIGNAL("clicked(bool)"), self.failVote)
         self.connect(self.ui.passButton, SIGNAL("clicked(bool)"), self.passVote)
+        self.connect(self.ui.commentButton, SIGNAL("clicked(bool)"), self.comment)
         
     @pyqtSlot()
     def unlockCheck(self):
@@ -75,10 +76,27 @@ class Vote(QMainWindow):
     @pyqtSlot()
     def failVote(self):
         if self.passUnlocked:
-            self.thumb(False)
+            if QMessageBox.Ok == QMessageBox.question(self, "Are you sure ?", "Remember, the reasons for failing an app should be based on severe issues. It's more of a 'does it work' rather than a 'how well does it work'. If in doubt, please consult the QA a documentation."):
+                self.comment()
+                self.thumb(False)
         else:
             QMessageBox.information(self, "Fail criteria missing","You need to supply a reason for failing this package. Remember, it's not about whether you like the application, how pretty or cool it is - it is about whether it negatively impacts your usage of your device and if it is well-behaved (isn't illegal, is possible to report errors, etc). The slickness/coolness of the app will be judged by awarding it with 1-5 stars in Extras, not here.")
       
+    @pyqtSlot()
+    def comment(self):
+        commentdata = { "content" : self.id, "message" : self.ui.textEdit.toPlainText(), "type" : 1 }
+        print commentdata
+        passw_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+        passw_mgr.add_password( None,
+                          'https://maemo.org/packages/api/v1/comments/add/',
+                          str(self.settings.data.value("username").toString()).lower(),
+                          str(self.settings.data.value("password").toString()))
+        auth_handler = urllib2.HTTPBasicAuthHandler(passw_mgr)
+        self.opener = urllib2.build_opener(auth_handler)
+        
+        r = self.opener.open("https://maemo.org/packages/api/v1/comments/add/", urllib.urlencode(commentdata))
+        ret = r.read()
+        
     def thumb(self, b):
         if b:
             message = 1
