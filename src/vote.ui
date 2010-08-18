@@ -124,6 +124,13 @@
          <widget class="QTextEdit" name="textEdit"/>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="passButton">
@@ -133,6 +140,13 @@
             <property name="icon">
              <iconset resource="kisstester.qrc">
               <normaloff>:/icons/favourite.png</normaloff>:/icons/favourite.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="commentButton">
+            <property name="text">
+             <string>Comment only</string>
             </property>
            </widget>
           </item>

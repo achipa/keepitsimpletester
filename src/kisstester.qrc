@@ -7,4 +7,18 @@
     <file>favourite.png</file>
     <file>padlock_open.png</file>
   </qresource>
+  <qresource prefix="appitem" >
+    <file>images/icon1_active.png</file>
+    <file>images/icon1_inactive.png</file>
+    <file>images/icon2_active.png</file>
+    <file>images/icon2_inactive.png</file>
+    <file>images/icon3_active.png</file>
+    <file>images/icon3_inactive.png</file>
+    <file>images/icon4_active.png</file>
+    <file>images/icon4_inactive.png</file>
+    <file>images/pressed_button.png</file>
+    <file>images/thumbsdown.png</file>
+    <file>images/thumbsup.png</file>
+    <file>images/unpressed_button.png</file>
+  </qresource>
 </RCC>

@@ -26,7 +26,7 @@ class Settings(QDialog):
     def show(self):
         self.sd.user.setText(self.data.value("username","").toString())
         self.sd.passw.setText(self.data.value("password","").toString())
-        if self.exec_():
+        if self.exec_() and self.accepted():
             self.data.setValue("username", self.sd.user.text())
             self.data.setValue("password", self.sd.passw.text())
             self.data.sync()

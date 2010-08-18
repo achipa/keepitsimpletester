@@ -35,7 +35,7 @@ from main_ui import Ui_MainWindow
 
 import settings
 import vote 
-import appitem
+import appitem2
 
 class MainWindow(QMainWindow):
     loginAvailable = pyqtSignal()
@@ -147,8 +147,9 @@ class MainWindow(QMainWindow):
         if len(p.packages) > 0:
             pkglist = ""
             for (name, d) in p.packages.iteritems():
-                item = appitem.AppItem(self, d)
+                item = appitem2.AppItem(self, d)
                 self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
+                self.connect(item.ui.pButton_details, SIGNAL("clicked()"), item.debDetails)
                 self.ui.queueLayout.insertWidget(0,item)
                 pkglist += " " + name
                 
@@ -160,8 +161,10 @@ class MainWindow(QMainWindow):
                     continue
                 for (pname, d) in p.packages.iteritems():         
                     if d["pname"] == pkgdata[0] and d["version"] == pkgdata[1]:
-                        item = appitem.AppItem(self, d)
+                        item = appitem2.AppItem(self, d)
                         self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
+                        self.connect(item.ui.pButton_details, SIGNAL("clicked()"), item.bugReport)
+                        item.ui.pButton_details.setText("Report bug")
                         self.ui.recentLayout.insertWidget(0,item)                                  
                     
 #                    for filename in os.listdir("/var/lib/dpkg/info"):
@@ -206,7 +209,7 @@ class MainWindow(QMainWindow):
         if self.votedialog.isVisible():
             return
         
-        p = self.sender().parent()
+        p = self.sender().parent().parent() # yes, cludgy
         self.votedialog.setWindowTitle(p.name + " " + p.version)
         self.votedialog.pname = p.pname
         self.votedialog.version = p.version
