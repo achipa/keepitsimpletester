@@ -87,10 +87,10 @@ class Vote(QMainWindow):
       
     @pyqtSlot()
     def failVote(self):
-        if self.passUnlocked:
-            if QMessageBox.Ok == QMessageBox.question(self, "Are you sure ?", "Remember, the reasons for failing an app should be based on severe issues. It's more of a 'does it work' rather than a 'how well does it work'. If in doubt, please consult the QA a documentation."):
-                self.comment()
-                self.thumb(False)
+        if self.failUnlocked:
+#            if QMessageBox.Ok == QMessageBox.question(self, "Are you sure ?", "Remember, the reasons for failing an app should be based on severe issues. It's more of a 'does it work' rather than a 'how well does it work'. If in doubt, please consult the QA a documentation."):
+            self.comment()
+            self.thumb(False)
         else:
             QMessageBox.information(self, "Fail criteria missing","You need to supply a reason for failing this package. Remember, it's not about whether you like the application, how pretty or cool it is - it is about whether it negatively impacts your usage of your device and if it is well-behaved (isn't illegal, is possible to report errors, etc). The slickness/coolness of the app will be judged by awarding it with 1-5 stars in Extras, not here.")
       
@@ -143,9 +143,9 @@ class Vote(QMainWindow):
                 ret = r.read()
                 # voting is slow, maybe we need a progress bar here, too...
                 if b:
-                    QMessageBox.information(self, "Pass :)","Package thumbed up. It might take a few minutes until your vote appears in the listing.")
+                    QMessageBox.information(self, "Package Passed :)","Package thumbed up. It might take a few minutes until your vote appears in the listing.")
                 else:
-                    QMessageBox.information(self, "Fail :(","Package thumbed down. It might take a few minutes until your vote appears in the listing.")
+                    QMessageBox.information(self, "Package Failed :(","Package thumbed down. It might take a few minutes until your vote appears in the listing.")
                 try: 
                     self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
                     QApplication.processEvents()
