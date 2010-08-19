@@ -96,13 +96,15 @@ class Vote(QMainWindow):
       
     @pyqtSlot()
     def comment(self):
+        if len(self.ui.textEdit.toPlainText()) == 0 :
+            return
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
             QApplication.processEvents()
         except: pass
-        commentdata = { "content" : self.id, "message" : self.ui.textEdit.toPlainText(), "type" : 1 }
+        commentdata = { "content" : self.id, "message" : self.ui.textEdit.toPlainText() + "\n\n--\n\nKT", "type" : 1 }
         print commentdata
-        self.ui.textEdit().setText("")
+        self.ui.textEdit.setText("")
         passw_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
         passw_mgr.add_password( None,
                           'https://maemo.org/packages/api/v1/comments/add/',
