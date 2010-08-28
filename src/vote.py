@@ -20,11 +20,10 @@ from vote_ui import Ui_MainWindow
 
 import settings
 
-class Vote(QMainWindow):
+class Vote(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=0):
         QMainWindow.__init__(self,parent)
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.setupUi(self)
         try:
             self.setAttribute(Qt.WA_Maemo5StackedWindow)
         except: pass
@@ -36,42 +35,42 @@ class Vote(QMainWindow):
         self.failUnlocked = False
         self.passUnlocked = False
         
-        self.connect(self.ui.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_brk, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_bug, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_dub, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_lic, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_opt, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.ui.cBox_pwr, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_brk, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_bug, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_dub, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_lic, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_opt, SIGNAL("clicked(bool)"), self.unlockCheck)
+        self.connect(self.cBox_pwr, SIGNAL("clicked(bool)"), self.unlockCheck)
         
-        self.connect(self.ui.textEdit, SIGNAL("textChanged()"), self.unlockCheck)
+        self.connect(self.textEdit, SIGNAL("textChanged()"), self.unlockCheck)
        
-        self.connect(self.ui.pButton_detail, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://wiki.maemo.org/Extras-testing/QA_Checklist"))
-        self.connect(self.ui.pButton_page, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://maemo.org/packages/package_instance/view/fremantle_extras-testing_free_armel/%s/%s/" % (self.pname, self.version)))
+        self.connect(self.pButton_detail, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://wiki.maemo.org/Extras-testing/QA_Checklist"))
+        self.connect(self.pButton_page, SIGNAL("clicked(bool)"), lambda: webbrowser.open("http://maemo.org/packages/package_instance/view/fremantle_extras-testing_free_armel/%s/%s/" % (self.pname, self.version)))
                      
-        self.connect(self.ui.failButton, SIGNAL("clicked(bool)"), self.failVote)
-        self.connect(self.ui.passButton, SIGNAL("clicked(bool)"), self.passVote)
-        self.connect(self.ui.commentButton, SIGNAL("clicked(bool)"), self.comment)
+        self.connect(self.failButton, SIGNAL("clicked(bool)"), self.failVote)
+        self.connect(self.passButton, SIGNAL("clicked(bool)"), self.passVote)
+        self.connect(self.commentButton, SIGNAL("clicked(bool)"), self.comment)
         
     def show(self):
-        self.ui.cBox_cpu.setChecked(False)
-        self.ui.cBox_brk.setChecked(False)
-        self.ui.cBox_bug.setChecked(False)
-        self.ui.cBox_dub.setChecked(False)
-        self.ui.cBox_lic.setChecked(False)
-        self.ui.cBox_opt.setChecked(False)
-        self.ui.cBox_pwr.setChecked(False)
-        self.ui.textEdit.setText("")
+        self.cBox_cpu.setChecked(False)
+        self.cBox_brk.setChecked(False)
+        self.cBox_bug.setChecked(False)
+        self.cBox_dub.setChecked(False)
+        self.cBox_lic.setChecked(False)
+        self.cBox_opt.setChecked(False)
+        self.cBox_pwr.setChecked(False)
+        self.textEdit.setText("")
         QMainWindow.show(self)
         
     @pyqtSlot()
     def unlockCheck(self):
-        if self.ui.cBox_cpu.isChecked() and self.ui.cBox_brk.isChecked() and self.ui.cBox_bug.isChecked() and self.ui.cBox_dub.isChecked() and self.ui.cBox_lic.isChecked() and self.ui.cBox_opt.isChecked() and self.ui.cBox_pwr.isChecked() :
+        if self.cBox_cpu.isChecked() and self.cBox_brk.isChecked() and self.cBox_bug.isChecked() and self.cBox_dub.isChecked() and self.cBox_lic.isChecked() and self.cBox_opt.isChecked() and self.cBox_pwr.isChecked() :
             self.passUnlocked = True
         else:
             self.passUnlocked = False
             
-        if len(self.ui.textEdit.toPlainText()) > 5:
+        if len(self.textEdit.toPlainText()) > 5:
             self.failUnlocked = True
         else:
             self.failUnlocked = False
@@ -96,15 +95,15 @@ class Vote(QMainWindow):
       
     @pyqtSlot()
     def comment(self):
-        if len(self.ui.textEdit.toPlainText()) == 0 :
+        if len(self.textEdit.toPlainText()) == 0 :
             return
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, True)
             QApplication.processEvents()
         except: pass
-        commentdata = { "content" : self.id, "message" : self.ui.textEdit.toPlainText() + "\n\n--\n\nKT", "type" : 1 }
+        commentdata = { "content" : self.id, "message" : self.textEdit.toPlainText() + "\n\n--\n\nKT", "type" : 1 }
         print commentdata
-        self.ui.textEdit.setText("")
+        self.textEdit.setText("")
         passw_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
         passw_mgr.add_password( None,
                           'https://maemo.org/packages/api/v1/comments/add/',

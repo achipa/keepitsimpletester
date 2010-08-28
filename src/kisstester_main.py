@@ -31,19 +31,21 @@ except Exception, e:
     subprocess.call(["pyrcc4", "kisstester.qrc", "-o", "kisstester_rc.py"])
 from main_ui import Ui_MainWindow
     
-# end ugly
+# end ugly, you can open your eyes now
 
 import settings
 import vote 
 import appitem2
+from asyncloader import aLoader
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     loginAvailable = pyqtSignal()
+    loginRequested = pyqtSignal()
+    loadNextPage = pyqtSignal(int)
     
     def __init__(self):
         QMainWindow.__init__(self)
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.setupUi(self)
         try:
             self.setAttribute(Qt.WA_Maemo5StackedWindow)
         except: pass
@@ -55,45 +57,48 @@ class MainWindow(QMainWindow):
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cj))
 
         self.packages = {}
-        self.loadProgress = QProgressDialog()
+        self.loadProgress = QProgressDialog(self)
         self.loadProgress.setVisible(False)
-        self.loadProgress.setWindowModality(Qt.WindowModal)
-        self.ui.queueScroll.setVisible(False)
+        self.loadProgress.setWindowModality(Qt.NonModal)
+
+        self.queueScroll.setVisible(False)
         
-        self.connect(self.ui.actionSettings, SIGNAL("triggered()"), self.settings, 
+        self.connect(self.actionSettings, SIGNAL("triggered()"), self.settings, 
                     SLOT("show()"))
         
-        self.connect(self.ui.actionAbout, SIGNAL("triggered()"), 
+        self.connect(self.actionAbout, SIGNAL("triggered()"), 
                     lambda: QMessageBox.about(self, "KISStester", "An application to simplify the QA feedback for applications in the extras-testing repository of maemo.org. <BR><BR>Border colour indicates your vote, text color indicates unlock status.<BR><BR>Developed with PyQt and WingIDE. Happy testing !"))
         
-        self.connect(self.ui.actionAbout_Qt, SIGNAL("triggered()"), 
+        self.connect(self.actionAbout_Qt, SIGNAL("triggered()"), 
                     lambda: QApplication.instance().aboutQt())
         
-        self.connect(self.ui.actionReload_repository_data, SIGNAL("triggered()"),
+        self.connect(self.actionReload_repository_data, SIGNAL("triggered()"),
                     self.loadPackages)
         
-        self.connect(self.ui.actionCommentList, SIGNAL("triggered()"),
+        self.connect(self.actionCommentList, SIGNAL("triggered()"),
                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-comments"))
 
-        self.connect(self.ui.actionTesterList, SIGNAL("triggered()"),
+        self.connect(self.actionTesterList, SIGNAL("triggered()"),
                     lambda: webbrowser.open("https://garage.maemo.org/mailman/listinfo/testingsquad-list"))
                                              
-        self.connect(self.ui.actionFilter_packages, SIGNAL("triggered()"),
+        self.connect(self.actionFilter_packages, SIGNAL("triggered()"),
                     self.pickFilter)
         
-        self.connect(self.ui.actionShow_only_unchecked, SIGNAL("triggered(bool)"),
-                     self.hideTested)
+        self.connect(self.actionShow_only_unchecked, SIGNAL("triggered(bool)"),
+                    self.hideTested)
         
         self.loginAvailable.connect(self.loadPackages)
+        self.loginRequested.connect(self.login)
+        self.loadNextPage.connect(self.loadPackages)
                          
         self.showRecent(True)
+
     #            http://maemo.org/packages/api/v1/content/data/?parent=fremantle_extras-testing_free_armel&ordermode=new&search=hermes
     #    mainw.connect(umw.actionAutorotate, SIGNAL("triggered(bool)"), lambda x: settings.setValue("autorotate", 0))
-    
+
+    @pyqtSlot()
     def login(self):
         logging.warning("Logging in")
-#        garagedata = { "return_to" : "", "form_loginname" : "achipa" , "form_pw" : "123456", "login" : "Login+with+SSL" }
-#        r = opener.open("https://garage.maemo.org/account/login.php", urllib.urlencode(garagedata))
 
         self.loadProgress.setWindowTitle("Logging in to maemo.org")
         self.loadProgress.setRange(0,0)
@@ -111,35 +116,42 @@ class MainWindow(QMainWindow):
         except Exception, e:
             print e
          
-#        "https://maemo.org/username=achipa&password=123456&midcom_services_auth_frontend_form_submit=Login"
-
         while not self.loggedin:
             if not self.settings.show():
                 self.loadProgress.hide()
                 return
             self.login()
-    
+
     @pyqtSlot()
     @pyqtSlot(int)
-    def loadPackages(self,page=1):
+    def loadPackages(self, page=1):
         if page == 1:
             self.loadProgress.setWindowTitle("Loading extras-testing data")
             self.loadProgress.setRange(0,0)
             self.loadProgress.show()
             QApplication.processEvents()
-            while self.ui.queueLayout.count() > 1:
-                self.ui.queueLayout.takeAt(0).widget().deleteLater()
-            while self.ui.recentLayout.count() > 1:
-                self.ui.recentLayout.takeAt(0).widget().deleteLater()
+            while self.queueLayout.count() > 1:
+                self.queueLayout.takeAt(0).widget().deleteLater()
+            while self.recentLayout.count() > 1:
+                self.recentLayout.takeAt(0).widget().deleteLater()
+      
+        self.a = aLoader(self.opener, "http://maemo.org/packages/repository/qa/fremantle_extras-testing/?org_openpsa_qbpager_packages_in_repo_page=%s" % page)
+        self.a.start()
+        self.connect(self.a, SIGNAL("finished()"), self.processPageData )
+        self.page = page
+
+    @pyqtSlot()
+    def processPageData(self):
  #      try:
-        r = self.opener.open("http://maemo.org/packages/repository/qa/fremantle_extras-testing/?org_openpsa_qbpager_packages_in_repo_page=%s" % page)
-        content = r.read()
         p = parser.MyHTMLParser()
-        p.feed(content)
+        p.feed(self.sender().content) # gotta quit using this self.sender() thing...
+        self.sender().deleteLater()
         p.close()
-        if page == 1:
-            self.loadProgress.setRange(0, p.pages)
-            self.loadProgress.setValue(page)
+        if self.page == 1: # we will know the range we need to load after getting the first page
+            self.loadProgress.setRange(0, 2*p.pages) # we count 1 step for loading and one step for processing the data
+
+        self.loadProgress.setValue(2*self.page-1) # 1 means we loaded it, it will be 2 when we finish processing
+          
         QApplication.processEvents()
         print p.pages
         print len(p.packages)
@@ -148,9 +160,9 @@ class MainWindow(QMainWindow):
             pkglist = ""
             for (name, d) in p.packages.iteritems():
                 item = appitem2.AppItem(self, d)
-                self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
-                self.connect(item.ui.pButton_details, SIGNAL("clicked()"), item.debDetails)
-                self.ui.queueLayout.insertWidget(0,item)
+                self.connect(item.pButton_vote, SIGNAL("clicked()"), self.vote)
+                self.connect(item.pButton_details, SIGNAL("clicked()"), item.debDetails)
+                self.queueLayout.insertWidget(0,item)
                 pkglist += " " + name
                 
             rawrecent = subprocess.Popen(["/usr/bin/dpkg-query -W %s" % str(pkglist)], shell=True, bufsize=8192, stdout=subprocess.PIPE).stdout.read()
@@ -162,22 +174,21 @@ class MainWindow(QMainWindow):
                 for (pname, d) in p.packages.iteritems():         
                     if d["pname"] == pkgdata[0] and d["version"] == pkgdata[1]:
                         item = appitem2.AppItem(self, d)
-                        self.connect(item.ui.pButton_vote, SIGNAL("clicked()"), self.vote)
-                        self.connect(item.ui.pButton_details, SIGNAL("clicked()"), item.bugReport)
-                        item.ui.pButton_details.setText("Report bug")
-                        self.ui.recentLayout.insertWidget(0,item)                                  
+                        self.connect(item.pButton_vote, SIGNAL("clicked()"), self.vote)
+                        self.connect(item.pButton_details, SIGNAL("clicked()"), item.bugReport)
+                        item.pButton_details.setText("Report bug")
+                        self.recentLayout.insertWidget(0,item)                                  
                     
 #                    for filename in os.listdir("/var/lib/dpkg/info"):
 #                        if not filename.endswith(".list"):
 #                            continue
                 
-            self.loadProgress.setValue(page)
-            QApplication.processEvents()
-            self.loadPackages(page + 1)
+            self.loadProgress.setValue(2*self.page)
+            self.loadNextPage.emit(self.page + 1)
         else:
             self.loadProgress.reset()
             self.sortArea()
-            if self.ui.recentContents.isVisible and self.ui.recentLayout.count() < 2:
+            if self.recentContents.isVisible and self.recentLayout.count() < 2:
                 QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. Switching to full QA queue view.")
                 self.showRecent(False)
             
@@ -189,18 +200,18 @@ class MainWindow(QMainWindow):
             QApplication.processEvents()
         except: pass
         tmplist = []
-        while self.ui.queueLayout.count() > 1: # move appitems from the layout to a list so we could sort them
-            tmplist.append(self.ui.queueLayout.takeAt(0).widget())
+        while self.queueLayout.count() > 1: # move appitems from the layout to a list so we could sort them
+            tmplist.append(self.queueLayout.takeAt(0).widget())
         s = sorted(tmplist, key=lambda x: x.waiting, reverse=True) # reverse as QA is a LIFO (should be, anyway)
         for elem in s:
-            self.ui.queueLayout.insertWidget(0, elem)
+            self.queueLayout.insertWidget(0, elem)
             
         tmplist = []
-        while self.ui.recentLayout.count() > 1:
-            tmplist.append(self.ui.recentLayout.takeAt(0).widget())
+        while self.recentLayout.count() > 1:
+            tmplist.append(self.recentLayout.takeAt(0).widget())
         s = sorted(tmplist, key=lambda x: x.waiting) # not reverse as the already installed section is LIFO
         for elem in s:
-            self.ui.recentLayout.insertWidget(0, elem)
+            self.recentLayout.insertWidget(0, elem)
         try: 
             self.setAttribute(Qt.WA_Maemo5ShowProgressIndicator, False)
         except: pass
@@ -229,7 +240,7 @@ class MainWindow(QMainWindow):
     
     @pyqtSlot(bool)
     def hideTested(self, b):
-        for item in self.ui.queueContents.children():
+        for item in self.queueContents.children():
             try:
                 if b and item.voted:
                     item.setVisible(False)
@@ -237,7 +248,7 @@ class MainWindow(QMainWindow):
                     item.setVisible(True)
             except Exception, e:
                 print e
-        for item in self.ui.recentContents.children():
+        for item in self.recentContents.children():
             try:
                 if b and item.voted:
                     item.setVisible(False)
@@ -248,11 +259,11 @@ class MainWindow(QMainWindow):
         
     @pyqtSlot(bool)
     def showRecent(self, b):
-        self.ui.recentScroll.setVisible(b)
-        self.ui.queueScroll.setVisible(not b)
+        self.recentScroll.setVisible(b)
+        self.queueScroll.setVisible(not b)
         if not self.loggedin:
-            self.login()
-        elif b and self.ui.recentLayout.count() < 2:
+            self.loginRequested.emit()
+        elif b and self.recentLayout.count() < 2:
             QMessageBox.warning(self, "No packages", "Currently you do not have packages installed from extras-testing that need feedback. If you want to install such software, please change the package filter in the menu to show the complete QA queue")
         
     @pyqtSlot()

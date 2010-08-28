@@ -1,5 +1,13 @@
-kisstester (0.2-maemo0) unstable; urgency=low
+kisstester (0.3.1-maemo0) unstable; urgency=low
 
-  * Recent/Queue selector, less color indicators
+  * Asynchronous page loading
 
- -- Attila Csipa <maemo@csipa.in.rs>  Mon, 09 Aug 2010 11:44:16 +0200
+ -- Attila Csipa <maemo@csipa.in.rs>  Sat, 28 Aug 2010 21:04:16 +0100
+
+kisstester (0.3-maemo2) unstable; urgency=low
+
+  * New design courtesy of ivanzorkic
+  * comments work
+  * update indication
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Mon, 19 Aug 2010 01:04:16 +0100

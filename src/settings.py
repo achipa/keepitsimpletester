@@ -16,17 +16,17 @@ except:
     subprocess.call(["pyuic4", "settings.ui", "-o", "settings_ui.py"])
 from settings_ui import Ui_Dialog
 
-class Settings(QDialog):
+class Settings(QDialog, Ui_Dialog):
     def __init__(self):
         QDialog.__init__(self)
+        self.setWindowModality(Qt.WindowModal)
         self.data = QSettings("kisstester","main")
-        self.sd = Ui_Dialog()
-        self.sd.setupUi(self)
+        self.setupUi(self)
         
     def show(self):
-        self.sd.user.setText(self.data.value("username","").toString())
-        self.sd.passw.setText(self.data.value("password","").toString())
-        if self.exec_() and self.accepted():
+        self.user.setText(self.data.value("username","").toString())
+        self.passw.setText(self.data.value("password","").toString())
+        if QDialog.exec_(self)==QDialog.Accepted:
             self.data.setValue("username", self.sd.user.text())
             self.data.setValue("password", self.sd.passw.text())
             self.data.sync()
