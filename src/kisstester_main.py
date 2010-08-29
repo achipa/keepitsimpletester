@@ -107,21 +107,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QApplication.processEvents()
         maemodata = { "username" : str(self.settings.data.value("username").toString()).lower(), "password" : str(self.settings.data.value("password").toString()), "midcom_services_auth_frontend_form_submit" : "Login" }
         print maemodata
-        try:
-            r = self.opener.open("https://maemo.org", urllib.urlencode(maemodata))
-            if r.read().find("http://static.maemo.org/style_maemo2009/img/logged.png") > 0:
+        if len(maemodata['username']) == 0:
+            self.settings.show()
+            self.loginRequested.emit()
+            return
+
+        def finishLogin(a):
+            if a.content.find("http://static.maemo.org/style_maemo2009/img/logged.png") > 0:
                 self.loggedin = True
                 self.loadProgress.reset()
                 self.loginAvailable.emit()
+            else:
+                if self.settings.show():
+                    self.loginRequested.emit()
+
+            a.deleteLater()
+            self.loadProgress.hide()
+
+        try:
+            self.a = aLoader(self.opener, "https://maemo.org/", urllib.urlencode(maemodata))
+            self.connect(self.a, SIGNAL("finished()"), lambda: finishLogin(self.a))
+            self.a.start()
         except Exception, e:
             print e
          
-        while not self.loggedin:
-            if not self.settings.show():
-                self.loadProgress.hide()
-                return
-            self.login()
-
     @pyqtSlot()
     @pyqtSlot(int)
     def loadPackages(self, page=1):
@@ -149,14 +158,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         p.close()
         if self.page == 1: # we will know the range we need to load after getting the first page
             self.loadProgress.setRange(0, 2*p.pages) # we count 1 step for loading and one step for processing the data
-
-        self.loadProgress.setValue(2*self.page-1) # 1 means we loaded it, it will be 2 when we finish processing
           
-        QApplication.processEvents()
         print p.pages
         print len(p.packages)
         
         if len(p.packages) > 0:
+            self.loadProgress.setValue(2*self.page-1) # 1 means we loaded it, it will be 2 when we finish processing
+            QApplication.processEvents()
+
             pkglist = ""
             for (name, d) in p.packages.iteritems():
                 item = appitem2.AppItem(self, d)

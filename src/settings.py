@@ -27,8 +27,8 @@ class Settings(QDialog, Ui_Dialog):
         self.user.setText(self.data.value("username","").toString())
         self.passw.setText(self.data.value("password","").toString())
         if QDialog.exec_(self)==QDialog.Accepted:
-            self.data.setValue("username", self.sd.user.text())
-            self.data.setValue("password", self.sd.passw.text())
+            self.data.setValue("username", self.user.text())
+            self.data.setValue("password", self.passw.text())
             self.data.sync()
             return True
         

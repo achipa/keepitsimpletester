@@ -6,6 +6,7 @@ class aLoader(QThread):
         self.opener = opener
 	self.url = url
         self.data = data
+        self.content = ""
 
     def run(self):
         r = self.opener.open(self.url, self.data)
