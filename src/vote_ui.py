@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vote.ui'
 #
-# Created: Wed Aug 18 17:30:02 2010
+# Created: Sun Sep 12 02:27:49 2010
 #      by: PyQt4 UI code generator 4.7.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(986, 741)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
@@ -22,17 +22,13 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget(self.scrollArea)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 778, 564))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 972, 708))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_2 = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_2.addWidget(self.label_2)
-        self.cBox_bug = QtGui.QCheckBox(self.scrollAreaWidgetContents)
-        self.cBox_bug.setObjectName("cBox_bug")
-        self.verticalLayout_2.addWidget(self.cBox_bug)
         self.cBox_lic = QtGui.QCheckBox(self.scrollAreaWidgetContents)
         self.cBox_lic.setObjectName("cBox_lic")
         self.verticalLayout_2.addWidget(self.cBox_lic)
@@ -66,6 +62,9 @@ class Ui_MainWindow(object):
         self.textEdit = QtGui.QTextEdit(self.scrollAreaWidgetContents)
         self.textEdit.setObjectName("textEdit")
         self.verticalLayout_2.addWidget(self.textEdit)
+        self.showCommentsButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.showCommentsButton.setObjectName("showCommentsButton")
+        self.verticalLayout_2.addWidget(self.showCommentsButton)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.passButton = QtGui.QPushButton(self.scrollAreaWidgetContents)
@@ -88,7 +87,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.scrollArea)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 986, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
 
@@ -98,7 +97,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Fulfilled criteria (required for passing an application):", None, QtGui.QApplication.UnicodeUTF8))
-        self.cBox_bug.setText(QtGui.QApplication.translate("MainWindow", "Has proper bugtracking", None, QtGui.QApplication.UnicodeUTF8))
         self.cBox_lic.setText(QtGui.QApplication.translate("MainWindow", "Contains only properly licensed content", None, QtGui.QApplication.UnicodeUTF8))
         self.cBox_dub.setText(QtGui.QApplication.translate("MainWindow", "No dubious content (adult, violence, racism, etc)", None, QtGui.QApplication.UnicodeUTF8))
         self.cBox_brk.setText(QtGui.QApplication.translate("MainWindow", "No broken basic functionality", None, QtGui.QApplication.UnicodeUTF8))
@@ -108,6 +106,7 @@ class Ui_MainWindow(object):
         self.pButton_page.setText(QtGui.QApplication.translate("MainWindow", "Use classic (web) interface", None, QtGui.QApplication.UnicodeUTF8))
         self.pButton_detail.setText(QtGui.QApplication.translate("MainWindow", "QA docs", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Detailed description of issues found (required for failing an application):", None, QtGui.QApplication.UnicodeUTF8))
+        self.showCommentsButton.setText(QtGui.QApplication.translate("MainWindow", "Show previous comments", None, QtGui.QApplication.UnicodeUTF8))
         self.passButton.setText(QtGui.QApplication.translate("MainWindow", "PASS", None, QtGui.QApplication.UnicodeUTF8))
         self.commentButton.setText(QtGui.QApplication.translate("MainWindow", "Comment only", None, QtGui.QApplication.UnicodeUTF8))
         self.failButton.setText(QtGui.QApplication.translate("MainWindow", "FAIL", None, QtGui.QApplication.UnicodeUTF8))

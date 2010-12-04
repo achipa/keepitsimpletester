@@ -37,7 +37,6 @@ class Vote(QMainWindow, Ui_MainWindow):
         
         self.connect(self.cBox_cpu, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.cBox_brk, SIGNAL("clicked(bool)"), self.unlockCheck)
-        self.connect(self.cBox_bug, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.cBox_dub, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.cBox_lic, SIGNAL("clicked(bool)"), self.unlockCheck)
         self.connect(self.cBox_opt, SIGNAL("clicked(bool)"), self.unlockCheck)
@@ -55,7 +54,6 @@ class Vote(QMainWindow, Ui_MainWindow):
     def show(self):
         self.cBox_cpu.setChecked(False)
         self.cBox_brk.setChecked(False)
-        self.cBox_bug.setChecked(False)
         self.cBox_dub.setChecked(False)
         self.cBox_lic.setChecked(False)
         self.cBox_opt.setChecked(False)
@@ -65,7 +63,7 @@ class Vote(QMainWindow, Ui_MainWindow):
         
     @pyqtSlot()
     def unlockCheck(self):
-        if self.cBox_cpu.isChecked() and self.cBox_brk.isChecked() and self.cBox_bug.isChecked() and self.cBox_dub.isChecked() and self.cBox_lic.isChecked() and self.cBox_opt.isChecked() and self.cBox_pwr.isChecked() :
+        if self.cBox_cpu.isChecked() and self.cBox_brk.isChecked() and self.cBox_dub.isChecked() and self.cBox_lic.isChecked() and self.cBox_opt.isChecked() and self.cBox_pwr.isChecked() :
             self.passUnlocked = True
         else:
             self.passUnlocked = False
