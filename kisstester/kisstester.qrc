@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/main"/>
+    <qresource prefix="/vote"/>
+    <qresource prefix="/appitem"/>
+</RCC>

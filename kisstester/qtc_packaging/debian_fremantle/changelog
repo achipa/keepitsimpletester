@@ -1,0 +1,19 @@
+kisstester (0.9-maemo0) unstable; urgency=low
+
+  * QtQuick version
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Mon, 31 Jan 2011 11:04:16 +0300
+
+kisstester (0.3.1-maemo0) unstable; urgency=low
+
+  * Asynchronous page loading
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Sat, 28 Aug 2010 21:04:16 +0100
+
+kisstester (0.3-maemo2) unstable; urgency=low
+
+  * New design courtesy of ivanzorkic
+  * comments work
+  * update indication
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Mon, 19 Aug 2010 01:04:16 +0100

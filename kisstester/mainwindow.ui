@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>888</width>
+    <height>704</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>KISStester</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>3</number>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="qml" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>888</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFremantle">
+    <property name="title">
+     <string>Fremantle</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+    <addaction name="actionCommentList"/>
+    <addaction name="actionTesterList"/>
+    <addaction name="actionSettings"/>
+    <addaction name="actionReload_repository_data"/>
+    <addaction name="actionFilter_packages"/>
+    <addaction name="actionShow_only_unchecked"/>
+   </widget>
+   <addaction name="menuFremantle"/>
+  </widget>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Login settings</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionReload_repository_data">
+   <property name="text">
+    <string>Reload repository data</string>
+   </property>
+  </action>
+  <action name="actionCommentList">
+   <property name="text">
+    <string>Package comment archive</string>
+   </property>
+  </action>
+  <action name="actionTesterList">
+   <property name="text">
+    <string>Join the testing squad</string>
+   </property>
+  </action>
+  <action name="actionFilter_packages">
+   <property name="text">
+    <string>Package filter</string>
+   </property>
+  </action>
+  <action name="actionShow_only_unchecked">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show only unchecked</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
