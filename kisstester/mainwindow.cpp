@@ -20,21 +20,51 @@ MainWindow::MainWindow(QWidget *parent) :
     settings(new QSettings("kisstester", "main")),
     nam(new QNetworkAccessManager(this)),
     qapages(0),
-    loadedpages(0)
+    loadedpages(0),
+    votedialog(0)
+//    pm(new Attica::ProviderManager())
 {
     ui->setupUi(this);
-    viewer = new QmlApplicationViewer();
+#ifdef Q_WS_MAEMO5
+    setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
+            viewer = new QmlApplicationViewer();
 //    QGraphicsView* qgv=new QGraphicsView(ui->qml);
     viewer = new QmlApplicationViewer(ui->qml);
 //    viewer->setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
     viewer->setMainQmlFile(QLatin1String("qml/kisstester/main.qml"));
     viewer->showExpanded();
     viewer->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    viewer->rootContext()->setContextProperty("mw", this);
     QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptEnabled, false);
+
+//    Attica::ProviderManager *pm = new Attica::ProviderManager();
+//    pm->addProviderFile(QUrl("http://maemo.org/packages/providers.xml"));
+//    connect(pm, SIGNAL(providerAdded(Attica::Provider)), SLOT(setRESTProvider(Attica::Provider)));
     startLogin();
 }
 
-
+//void MainWindow::setRESTProvider(Attica::Provider p)
+//{
+//    provider = new Provider(p);
+//    Attica::ListJob<Attica::Content>* ljc;
+//    qDebug() << "go";
+////    Attica::Provider p(pm->providers()[0]);
+////    ljc = p.requestCategories();
+//    Attica::Category::List acl;
+//    acl<< Attica::Category();
+//    acl[0].setName("desktop,development,education,games,graphics,multimedia,navigation,network,office,science,system,utilities");
+//    acl[0].setId("desktop,development,education,games,graphics,multimedia,navigation,network,office,science,system,utilities"); //\&parent=fremantle_extras-testing_free_armel");
+////    acl<< Attica::Category();
+////    acl[1].setName("games");
+////    acl[1].setId("games");
+//    QString term = "bluezwitch"; //&parent=fremantle_extras-testing_free_armel";
+//    ljc = p.searchContents(acl, term, Attica::Provider::Rating, 0, 1000);
+//    connect(ljc, SIGNAL(finished(Attica::BaseJob*)), SLOT(munk(Attica::BaseJob*)));
+//    ljc->start();
+////    qDebug() << ljc->itemList().count();
+////    ListJob<Content>* lj = p->searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+//}
 MainWindow::~MainWindow()
 {
     foreach (QObject* p, packages)
@@ -118,7 +148,7 @@ void MainWindow::pageLoaded(QNetworkReply* rep)
         return;
     }
 
-    QWebPage* page = new QWebPage();
+    QScopedPointer<QWebPage> page(new QWebPage());
     page->mainFrame()->setContent(rep->readAll()); //rep->readAll());
     if (rep->url().toString().endsWith("1")) { // first page tells us the total number of pages, and allows launching load of remaining ones
         QWebElement element = page->mainFrame()->findAllElements("A[class=last_page]").first();
@@ -131,18 +161,18 @@ void MainWindow::pageLoaded(QNetworkReply* rep)
     }
     progress->setValue(++loadedpages);
 
-    // Teh Parser. Here be dragons and nasty code. Will prolly be deprecated for libattica
+    // Teh Parser. Here be dragons and nasty code.
 
     foreach (QWebElement element, page->mainFrame()->findAllElements("DIV[class=repository_list_item]")) {
         if (element.findFirst("DIV[class=karma]").isNull()) continue;
-        ExtrasPackage* package = new ExtrasPackage();
+        QPointer<ExtrasPackage> package(new ExtrasPackage());
         QWebElement tmpelement;
         QStringList qsl;
 
         if (!(tmpelement = element.findFirst("DIV[class=karma]")).isNull()) {
             qsl = tmpelement.toPlainText().split(": ");
             if (!qsl.isEmpty()) package->setKarma(qsl[1].toInt());
-            if (!tmpelement.findFirst("SPAN").isNull()) package->setStatus(true);
+            if (!tmpelement.findFirst("SPAN").isNull()) package->setStatus(true); // unlocked packages have a green span
         }
 
         package->setWaiting(QDateTime::fromString(element.findFirst("DIV[class=waiting_since]").toPlainText().replace(" UTC",""), "yyyy-MM-dd HH:mm"));
@@ -159,14 +189,12 @@ void MainWindow::pageLoaded(QNetworkReply* rep)
         packages << package;
 
     }
-    delete page;
+
     qDebug() << packages.count() << "packages loading...";
     if (loadedpages == qapages) {
         QDeclarativeContext* ctx = viewer->rootContext();
     //    ctx->setContextProperty("packageListModel", &packages);
         ctx->setContextProperty("packageListModel", QVariant::fromValue(packages));
-        qDebug() << ctx->contextProperty("packageListModel").type();
-        qDebug() << ctx->contextProperty("packageListModel").typeName();
 
         // check for installed packages
 
@@ -193,4 +221,16 @@ void MainWindow::pageLoaded(QNetworkReply* rep)
             }
         }
     }
+}
+
+void MainWindow::vote(int index)
+{
+    if (!votedialog)
+        votedialog = new VoteDialog(this);
+    qDebug() << index;
+    votedialog->setName(packages.at(index)->property("pname").toString());
+    votedialog->setVersion(packages.at(index)->property("version").toString());
+    votedialog->setNAM(nam);
+    votedialog->id(); // acquire id - needs name to be set first !
+    votedialog->show();
 }

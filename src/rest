@@ -28,3 +28,5 @@ http://maemo.org/packages/api/v1/comments/data/1/450c69a4a68811de965317405429a5f
 [15:42] <X-Fade> content = id of the package
 [15:43] <X-Fade> message = 1 or 0, up or down
 [15:43] <X-Fade> type=1 is static atm.
+
+http://maemo.org/packages/providers.xml

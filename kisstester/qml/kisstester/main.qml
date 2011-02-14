@@ -29,7 +29,7 @@ Rectangle {
             color: "#000000"
             AppItem {
                 id: item
-                Timer { interval: index*200; running: index < 7 ? true : false; onTriggered: { if (index == 6) main.cludge = false; item.state = "" } }
+                Timer { interval: index*200; running: (index < 7 && cludge) ? true : false; onTriggered: {if (index == 6) cludge=false; item.state = ""} }
                 states: State {
                     name: "unloaded"
                     PropertyChanges {
@@ -38,7 +38,7 @@ Rectangle {
                     }
 
                 }
-                state: cludge ? "unloaded" : ""
+                state: (index < 7 && cludge) ? "unloaded" : ""
 
                 transitions: Transition { NumberAnimation { target: item.parent; property: "x"; duration: 300; easing.type: Easing.OutQuad }  }
 
@@ -49,7 +49,8 @@ Rectangle {
                 appunlocked: status
                 appinstalled: installed
                 appquarantine : age > 10
-                // appupdated :
+                appupdated : installed
+                appbugpage: "http://"
                 appmyvote: vote
                 appkarma: karma > 10
 
@@ -63,18 +64,4 @@ Rectangle {
         anchors.fill: parent
         model: visualModel
     }
-    State {
-        name: "blank"
-        PropertyChanges {
-            target: name
-
-        }
-    }
-/*    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
-    }
-    */
 }

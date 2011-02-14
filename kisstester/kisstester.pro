@@ -33,7 +33,8 @@ symbian:TARGET.UID3 = 0xE58FF592
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     mainwindow.cpp \
-    extraspackage.cpp
+    extraspackage.cpp \
+    vote.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -43,8 +44,12 @@ RESOURCES += \
     kisstester.qrc
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    vote.ui
 
 HEADERS += \
     mainwindow.h \
-    extraspackage.h
+    extraspackage.h \
+    vote.h
+
+#LIBS += -lattica

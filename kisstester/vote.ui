@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>VoteDialog</class>
+ <widget class="QMainWindow" name="VoteDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -31,7 +31,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>972</width>
+         <width>964</width>
          <height>708</height>
         </rect>
        </property>
@@ -121,20 +121,35 @@
          </widget>
         </item>
         <item>
+         <widget class="QWebView" name="commentView">
+          <property name="url">
+           <url>
+            <string>about:blank</string>
+           </url>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="passButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>PASS</string>
             </property>
             <property name="icon">
-             <iconset resource="kisstester.qrc">
+             <iconset>
               <normaloff>:/icons/favourite.png</normaloff>:/icons/favourite.png</iconset>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="commentButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Comment only</string>
             </property>
@@ -142,11 +157,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="failButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>FAIL</string>
             </property>
             <property name="icon">
-             <iconset resource="kisstester.qrc">
+             <iconset>
               <normaloff>:/icons/buried.png</normaloff>:/icons/buried.png</iconset>
             </property>
            </widget>
@@ -165,13 +183,18 @@
      <x>0</x>
      <y>0</y>
      <width>986</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="kisstester.qrc"/>
- </resources>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
 </ui>

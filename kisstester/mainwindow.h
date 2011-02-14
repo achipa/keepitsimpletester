@@ -3,13 +3,15 @@
 
 #include <QtGui/QMainWindow>
 #include "qmlapplicationviewer.h"
+#include <vote.h>
 
-#include <QMessageBox>
-#include <QDesktopServices>
-#include <QProgressDialog>
-#include <QSettings>
+#include <QtGui/QMessageBox>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QProgressDialog>
+#include <QtCore/QSettings>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
+#include <QtCore/QPointer>
 
 #include <extraspackage.h>
 
@@ -33,9 +35,11 @@ public slots:
     void on_actionSettings_triggered(bool checked) { QMessageBox::aboutQt(this, tr("About Qt")); }
     void on_actionFilter_packages_triggered(bool checked) { QMessageBox::aboutQt(this, tr("About Qt")); }
     void on_actionShow_only_unchecked_triggered(bool checked) { QMessageBox::aboutQt(this, tr("About Qt")); }
-    void on_progress_canceled() { }
+//    void on_progress_canceled() { }
     void finishLogin(QNetworkReply* rep);
     void pageLoaded(QNetworkReply *rep);
+//    void setRESTProvider(Attica::Provider p);
+    Q_INVOKABLE void vote(int index);
 
 private:
     Ui::MainWindow *ui;
@@ -47,6 +51,8 @@ private:
     int qapages;
     int loadedpages;
     QList<QObject*> packages;
+//    Attica::ProviderManager *pm;
+    QPointer<VoteDialog> votedialog;
 };
 
 #endif // MAINWINDOW_H
